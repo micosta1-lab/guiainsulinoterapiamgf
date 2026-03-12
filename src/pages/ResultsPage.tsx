@@ -10,7 +10,7 @@ import DisclaimerBanner from "@/components/DisclaimerBanner";
 const ResultsPage = () => {
   const navigate = useNavigate();
   const [result, setResult] = useState<ClinicalResult | null>(null);
-  const [patientData, setPatientData] = useState<PatientData | null>(null);
+  const [_patientData, setPatientData] = useState<PatientData | null>(null);
   const [followUp, setFollowUp] = useState("");
 
   useEffect(() => {

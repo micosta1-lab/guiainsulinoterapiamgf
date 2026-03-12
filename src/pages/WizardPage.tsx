@@ -185,14 +185,14 @@ const StepContent = ({ step, data, update, flow, totalSteps }: StepContentProps)
       <div className="space-y-4">
         <p className="text-sm text-muted-foreground">Assinale os que se aplicam. Estes dados podem indicar necessidade de referenciação.</p>
         {([
-          { key: "sintomasCatabolicos", label: "Sintomas catabólicos/espoliativos", tooltip: "Poliúria, polidipsia, astenia marcada" },
-          { key: "perdaPonderal", label: "Perda ponderal significativa" },
-          { key: "cetonuriaPositiva", label: "Cetonúria positiva" },
-          { key: "patologiaAguda", label: "Patologia aguda intercorrente" },
-          { key: "internamentoCirurgia", label: "Internamento/cirurgia programada ou recente" },
-          { key: "insuficienciaRenalHepatica", label: "Insuficiência renal/hepática ou contraindicação a ADO" },
-          { key: "gravidez", label: "Gravidez" },
-        ] as const).map(({ key, label, tooltip }) => (
+          { key: "sintomasCatabolicos" as const, label: "Sintomas catabólicos/espoliativos", tooltip: "Poliúria, polidipsia, astenia marcada" },
+          { key: "perdaPonderal" as const, label: "Perda ponderal significativa", tooltip: undefined },
+          { key: "cetonuriaPositiva" as const, label: "Cetonúria positiva", tooltip: undefined },
+          { key: "patologiaAguda" as const, label: "Patologia aguda intercorrente", tooltip: undefined },
+          { key: "internamentoCirurgia" as const, label: "Internamento/cirurgia programada ou recente", tooltip: undefined },
+          { key: "insuficienciaRenalHepatica" as const, label: "Insuficiência renal/hepática ou contraindicação a ADO", tooltip: undefined },
+          { key: "gravidez" as const, label: "Gravidez", tooltip: undefined },
+        ]).map(({ key, label, tooltip }) => (
           <FieldGroup key={key} label="" tooltip={tooltip}>
             <label className="flex items-center gap-3 cursor-pointer">
               <input
