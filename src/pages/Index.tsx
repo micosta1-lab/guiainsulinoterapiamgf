@@ -26,7 +26,7 @@ const Index = () => {
       </header>
 
       {/* Hero */}
-      <main className="flex-1 flex items-center justify-center px-4 pb-16">
+      <main className="flex-1 flex items-center justify-center px-4 pb-16 mt-8">
         <div className="max-w-2xl w-full text-center space-y-8">
           <div className="space-y-3">
             <h2 className="font-heading text-3xl md:text-4xl font-extrabold text-foreground leading-tight">

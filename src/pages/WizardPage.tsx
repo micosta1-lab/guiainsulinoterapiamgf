@@ -79,7 +79,7 @@ const WizardPage = () => {
         </div>
       </header>
 
-      <div className="flex-1 container max-w-6xl mx-auto px-4 py-6 flex gap-8 pb-20">
+      <div className="flex-1 container max-w-6xl mx-auto px-4 py-8 flex gap-8 pb-20 mt-4">
         {/* Sidebar progress */}
         <aside className="hidden md:block w-56 shrink-0">
           <div className="sticky top-6">
