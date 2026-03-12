@@ -6,6 +6,8 @@ import {
 } from "lucide-react";
 import type { ClinicalResult, PatientData } from "@/lib/types";
 import DisclaimerBanner from "@/components/DisclaimerBanner";
+import logoUSF from "@/assets/logo-usf-marginal.png";
+import logoULS from "@/assets/logo-uls-lisboa.png";
 
 const ResultsPage = () => {
   const navigate = useNavigate();
