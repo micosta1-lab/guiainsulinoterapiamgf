@@ -210,6 +210,15 @@ const ResultsPage = () => {
                     </div>
                     <p className="text-xs text-muted-foreground mt-1">{s.descricao}</p>
                     <p className="text-xs text-primary/80 mt-1 italic">{s.justificacao}</p>
+                    {s.exemplosInsulinas && s.exemplosInsulinas.length > 0 && (
+                      <div className="mt-2 flex flex-wrap gap-1.5">
+                        {s.exemplosInsulinas.map((ex, j) => (
+                          <span key={j} className="text-[11px] bg-accent/50 text-accent-foreground px-2 py-0.5 rounded-md font-body">
+                            {ex}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>

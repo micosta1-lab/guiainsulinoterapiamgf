@@ -80,6 +80,7 @@ export interface IntensificationStrategy {
   descricao: string;
   justificacao: string;
   principal: boolean;
+  exemplosInsulinas?: string[];
 }
 
 export interface ClinicalResult {
