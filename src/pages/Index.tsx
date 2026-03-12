@@ -1,6 +1,8 @@
 import { Syringe, TrendingUp, Shield, BookOpen } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import DisclaimerBanner from "@/components/DisclaimerBanner";
+import logoUSF from "@/assets/logo-usf-marginal.png";
+import logoULS from "@/assets/logo-uls-lisboa.png";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -9,16 +11,17 @@ const Index = () => {
     <div className="min-h-screen bg-background flex flex-col">
       {/* Header */}
       <header className="border-b border-border bg-card">
-        <div className="container max-w-5xl mx-auto px-4 py-4 flex items-center gap-3">
-          <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
-            <Syringe className="w-5 h-5 text-primary-foreground" />
+        <div className="container max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <img src={logoUSF} alt="USF Marginal" className="h-10 w-auto" />
+            <div>
+              <h1 className="font-heading text-lg font-bold text-foreground leading-tight">
+                Apoio à Insulinoterapia na USF
+              </h1>
+              <p className="text-xs text-muted-foreground">Algoritmo clínico para DM2</p>
+            </div>
           </div>
-          <div>
-            <h1 className="font-heading text-lg font-bold text-foreground leading-tight">
-              Apoio à Insulinoterapia na USF
-            </h1>
-            <p className="text-xs text-muted-foreground">Algoritmo clínico para DM2</p>
-          </div>
+          <img src={logoULS} alt="ULS Lisboa Ocidental" className="h-8 w-auto hidden sm:block" />
         </div>
       </header>
 

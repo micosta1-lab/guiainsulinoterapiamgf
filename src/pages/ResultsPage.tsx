@@ -6,6 +6,8 @@ import {
 } from "lucide-react";
 import type { ClinicalResult, PatientData } from "@/lib/types";
 import DisclaimerBanner from "@/components/DisclaimerBanner";
+import logoUSF from "@/assets/logo-usf-marginal.png";
+import logoULS from "@/assets/logo-uls-lisboa.png";
 
 const ResultsPage = () => {
   const navigate = useNavigate();
@@ -39,7 +41,7 @@ const ResultsPage = () => {
       <header className="border-b border-border bg-card no-print">
         <div className="container max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Syringe className="w-5 h-5 text-primary" />
+            <img src={logoUSF} alt="USF Marginal" className="h-8 w-auto" />
             <span className="font-heading font-semibold text-foreground">Resumo de apoio à prescrição</span>
           </div>
           <div className="flex items-center gap-2">
@@ -52,6 +54,7 @@ const ResultsPage = () => {
             >
               <RotateCcw className="w-4 h-4 inline mr-1" /> Novo doente
             </button>
+            <img src={logoULS} alt="ULS Lisboa Ocidental" className="h-6 w-auto hidden sm:block" />
           </div>
         </div>
       </header>

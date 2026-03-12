@@ -1,11 +1,13 @@
 import { useState, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { ArrowLeft, ArrowRight, Syringe, AlertTriangle } from "lucide-react";
+import { ArrowLeft, ArrowRight, AlertTriangle } from "lucide-react";
 import type { PatientData, FlowType } from "@/lib/types";
 import { evaluatePatient } from "@/lib/clinicalEngine";
 import DisclaimerBanner from "@/components/DisclaimerBanner";
 import WizardProgress from "@/components/WizardProgress";
 import { FieldGroup, SegmentedOption, NumberInput } from "@/components/WizardFields";
+import logoUSF from "@/assets/logo-usf-marginal.png";
+import logoULS from "@/assets/logo-uls-lisboa.png";
 
 const STEPS_PRIMEIRA = [
   "Dados demográficos",
@@ -66,12 +68,13 @@ const WizardPage = () => {
           <button onClick={() => navigate("/")} className="text-muted-foreground hover:text-foreground">
             <ArrowLeft className="w-5 h-5" />
           </button>
-          <Syringe className="w-5 h-5 text-primary" />
+          <img src={logoUSF} alt="USF Marginal" className="h-8 w-auto" />
           <span className="font-heading font-semibold text-foreground">
             {flowType === "primeira" ? "Primeira prescrição" : "Intensificar prescrição"}
           </span>
-          <span className="text-xs text-muted-foreground ml-auto font-body">
+          <span className="text-xs text-muted-foreground ml-auto font-body flex items-center gap-3">
             Passo {step + 1} de {steps.length}
+            <img src={logoULS} alt="ULS Lisboa Ocidental" className="h-6 w-auto hidden sm:block" />
           </span>
         </div>
       </header>
