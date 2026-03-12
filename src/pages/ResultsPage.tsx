@@ -55,7 +55,6 @@ const ResultsPage = () => {
               <RotateCcw className="w-4 h-4 inline mr-1" /> Novo doente
             </button>
             <img src={logoULS} alt="ULS Lisboa Ocidental" className="h-6 w-auto hidden sm:block" />
-            </button>
           </div>
         </div>
       </header>

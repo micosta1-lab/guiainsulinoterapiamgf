@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { ArrowLeft, ArrowRight, Syringe, AlertTriangle } from "lucide-react";
+import { ArrowLeft, ArrowRight, AlertTriangle } from "lucide-react";
 import type { PatientData, FlowType } from "@/lib/types";
 import { evaluatePatient } from "@/lib/clinicalEngine";
 import DisclaimerBanner from "@/components/DisclaimerBanner";
