@@ -6,6 +6,8 @@ import { evaluatePatient } from "@/lib/clinicalEngine";
 import DisclaimerBanner from "@/components/DisclaimerBanner";
 import WizardProgress from "@/components/WizardProgress";
 import { FieldGroup, SegmentedOption, NumberInput } from "@/components/WizardFields";
+import logoUSF from "@/assets/logo-usf-marginal.png";
+import logoULS from "@/assets/logo-uls-lisboa.png";
 
 const STEPS_PRIMEIRA = [
   "Dados demográficos",
