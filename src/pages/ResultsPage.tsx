@@ -41,7 +41,7 @@ const ResultsPage = () => {
       <header className="border-b border-border bg-card no-print">
         <div className="container max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Syringe className="w-5 h-5 text-primary" />
+            <img src={logoUSF} alt="USF Marginal" className="h-8 w-auto" />
             <span className="font-heading font-semibold text-foreground">Resumo de apoio à prescrição</span>
           </div>
           <div className="flex items-center gap-2">
