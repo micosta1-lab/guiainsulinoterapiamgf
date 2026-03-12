@@ -211,6 +211,7 @@ function getEstrategiasIntensificacao(data: PatientData): IntensificationStrateg
       descricao: "Dividir dose de NPH em 2/3 ao pequeno-almoço e 1/3 ao deitar",
       justificacao: "Opção se já usa NPH e tem hiperglicemias durante o dia",
       principal: false,
+      exemplosInsulinas: ["Insulina NPH (Insulatard®, Humulin NPH®)"],
     });
   }
 
@@ -219,6 +220,11 @@ function getEstrategiasIntensificacao(data: PatientData): IntensificationStrateg
     descricao: `Dose inicial: 4 U ou 0,1 U/kg (${Math.round(peso * 0.1)} U) ou 10% da basal (${Math.round(doseBasal * 0.1)} U). Administrar na refeição com maior impacto glicémico.`,
     justificacao: "Estratégia basal-plus: permite controlo pós-prandial focado com menor complexidade",
     principal: !preMix.sugerir,
+    exemplosInsulinas: [
+      "Lispro (Humalog®)",
+      "Aspártico (NovoRapid®)",
+      "Glulisina (Apidra®)",
+    ],
   });
 
   if (preMix.sugerir) {
@@ -227,6 +233,12 @@ function getEstrategiasIntensificacao(data: PatientData): IntensificationStrateg
       descricao: "Iniciar pré-mistura ao pequeno-almoço e jantar. Ajustar conforme glicemias pré e pós-prandiais.",
       justificacao: preMix.motivos.join(". "),
       principal: true,
+      exemplosInsulinas: [
+        "Lispro/Lispro-protamina 25/75 (Humalog Mix 25®)",
+        "Lispro/Lispro-protamina 50/50 (Humalog Mix 50®)",
+        "Aspártico/Asp-protamina 30/70 (NovoMix 30®)",
+        "NPH/Regular 30/70 (Mixtard 30®, Humulin M3®)",
+      ],
     });
   }
 
@@ -235,6 +247,10 @@ function getEstrategiasIntensificacao(data: PatientData): IntensificationStrateg
     descricao: "Basal + insulina rápida a cada refeição principal. Maior flexibilidade mas maior complexidade.",
     justificacao: "Esquema mais intensivo, indicado quando basal-plus insuficiente ou HbA1c muito acima do alvo",
     principal: false,
+    exemplosInsulinas: [
+      "Basal: Glargina U100 (Lantus®), Degludec (Tresiba®)",
+      "Rápida: Lispro (Humalog®), Aspártico (NovoRapid®), Glulisina (Apidra®)",
+    ],
   });
 
   return strategies;
