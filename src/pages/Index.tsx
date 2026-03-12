@@ -13,7 +13,7 @@ const Index = () => {
       <header className="border-b border-border bg-card">
         <div className="container max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <img src={logoUSF} alt="USF Marginal" className="h-10 w-auto" />
+            <img src={logoUSF} alt="USF Marginal" className="h-14 w-auto" />
             <div>
               <h1 className="font-heading text-lg font-bold text-foreground leading-tight">
                 Apoio à Insulinoterapia na USF
@@ -26,7 +26,7 @@ const Index = () => {
       </header>
 
       {/* Hero */}
-      <main className="flex-1 flex items-center justify-center px-4 pb-16">
+      <main className="flex-1 flex items-center justify-center px-4 pb-16 mt-8">
         <div className="max-w-2xl w-full text-center space-y-8">
           <div className="space-y-3">
             <h2 className="font-heading text-3xl md:text-4xl font-extrabold text-foreground leading-tight">
