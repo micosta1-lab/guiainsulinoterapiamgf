@@ -98,72 +98,76 @@ const ResultsPage = () => {
 
         {/* Grid layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {/* Esquema recomendado */}
-          <div className="card-clinical space-y-3">
-            <div className="flex items-center gap-2 text-primary">
-              <Syringe className="w-5 h-5" />
-              <h3 className="font-heading font-bold">Esquema recomendado</h3>
+          {/* Esquema recomendado — apenas para primeira prescrição */}
+          {result.flow === "primeira" && (
+            <div className="card-clinical space-y-3">
+              <div className="flex items-center gap-2 text-primary">
+                <Syringe className="w-5 h-5" />
+                <h3 className="font-heading font-bold">Esquema recomendado</h3>
+              </div>
+              {result.insulinaRecomendada && (
+                <div className="space-y-2">
+                  <div className="bg-primary/5 rounded-lg p-3 border border-primary/20">
+                    <p className="font-heading font-bold text-foreground">{result.insulinaRecomendada.nome}</p>
+                    {result.insulinaRecomendada.justificacao && (
+                      <p className="text-xs text-muted-foreground mt-1">{result.insulinaRecomendada.justificacao}</p>
+                    )}
+                  </div>
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    <div>
+                      <p className="font-semibold text-foreground mb-1">Vantagens</p>
+                      <ul className="space-y-0.5 text-muted-foreground">
+                        {result.insulinaRecomendada.vantagens.map((v, i) => (
+                          <li key={i} className="flex items-start gap-1"><CheckCircle className="w-3 h-3 text-success mt-0.5 shrink-0" />{v}</li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-foreground mb-1">Limitações</p>
+                      <ul className="space-y-0.5 text-muted-foreground">
+                        {result.insulinaRecomendada.limitacoes.map((l, i) => (
+                          <li key={i} className="flex items-start gap-1"><AlertTriangle className="w-3 h-3 text-warning mt-0.5 shrink-0" />{l}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Other options */}
+              <details className="text-xs">
+                <summary className="cursor-pointer text-primary font-medium">Ver outras opções de insulina</summary>
+                <div className="mt-2 space-y-2">
+                  {result.opcoesInsulina.filter(o => !o.recomendado).map((o, i) => (
+                    <div key={i} className="bg-muted rounded-lg p-2">
+                      <p className="font-semibold text-foreground">{o.nome}</p>
+                      <p className="text-muted-foreground">{o.vantagens[0]} · {o.limitacoes[0]}</p>
+                    </div>
+                  ))}
+                </div>
+              </details>
             </div>
-            {result.insulinaRecomendada && (
+          )}
+
+          {/* Dose inicial — apenas para primeira prescrição */}
+          {result.flow === "primeira" && (
+            <div className="card-clinical space-y-3">
+              <div className="flex items-center gap-2 text-primary">
+                <TrendingUp className="w-5 h-5" />
+                <h3 className="font-heading font-bold">Dose inicial sugerida</h3>
+              </div>
               <div className="space-y-2">
-                <div className="bg-primary/5 rounded-lg p-3 border border-primary/20">
-                  <p className="font-heading font-bold text-foreground">{result.insulinaRecomendada.nome}</p>
-                  {result.insulinaRecomendada.justificacao && (
-                    <p className="text-xs text-muted-foreground mt-1">{result.insulinaRecomendada.justificacao}</p>
-                  )}
+                <div className="bg-primary/5 rounded-lg p-3 border border-primary/20 text-center">
+                  <p className="text-3xl font-heading font-extrabold text-primary">{result.doseInicialEscolhida} U/dia</p>
                 </div>
-                <div className="grid grid-cols-2 gap-2 text-xs">
-                  <div>
-                    <p className="font-semibold text-foreground mb-1">Vantagens</p>
-                    <ul className="space-y-0.5 text-muted-foreground">
-                      {result.insulinaRecomendada.vantagens.map((v, i) => (
-                        <li key={i} className="flex items-start gap-1"><CheckCircle className="w-3 h-3 text-success mt-0.5 shrink-0" />{v}</li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div>
-                    <p className="font-semibold text-foreground mb-1">Limitações</p>
-                    <ul className="space-y-0.5 text-muted-foreground">
-                      {result.insulinaRecomendada.limitacoes.map((l, i) => (
-                        <li key={i} className="flex items-start gap-1"><AlertTriangle className="w-3 h-3 text-warning mt-0.5 shrink-0" />{l}</li>
-                      ))}
-                    </ul>
-                  </div>
+                <div className="text-xs text-muted-foreground space-y-1">
+                  <p>• Dose fixa: <strong>10 U/dia</strong></p>
+                  {result.doseInicialPorPeso && <p>• Por peso: <strong>{result.doseInicialPorPeso}</strong></p>}
+                  <p className="text-primary/80 font-medium">Dose escolhida: {result.doseInicialEscolhida === 10 ? "dose fixa 10 U" : "baseada no peso"}</p>
                 </div>
               </div>
-            )}
-
-            {/* Other options */}
-            <details className="text-xs">
-              <summary className="cursor-pointer text-primary font-medium">Ver outras opções de insulina</summary>
-              <div className="mt-2 space-y-2">
-                {result.opcoesInsulina.filter(o => !o.recomendado).map((o, i) => (
-                  <div key={i} className="bg-muted rounded-lg p-2">
-                    <p className="font-semibold text-foreground">{o.nome}</p>
-                    <p className="text-muted-foreground">{o.vantagens[0]} · {o.limitacoes[0]}</p>
-                  </div>
-                ))}
-              </div>
-            </details>
-          </div>
-
-          {/* Dose inicial */}
-          <div className="card-clinical space-y-3">
-            <div className="flex items-center gap-2 text-primary">
-              <TrendingUp className="w-5 h-5" />
-              <h3 className="font-heading font-bold">Dose inicial sugerida</h3>
             </div>
-            <div className="space-y-2">
-              <div className="bg-primary/5 rounded-lg p-3 border border-primary/20 text-center">
-                <p className="text-3xl font-heading font-extrabold text-primary">{result.doseInicialEscolhida} U/dia</p>
-              </div>
-              <div className="text-xs text-muted-foreground space-y-1">
-                <p>• Dose fixa: <strong>10 U/dia</strong></p>
-                {result.doseInicialPorPeso && <p>• Por peso: <strong>{result.doseInicialPorPeso}</strong></p>}
-                <p className="text-primary/80 font-medium">Dose escolhida: {result.doseInicialEscolhida === 10 ? "dose fixa 10 U" : "baseada no peso"}</p>
-              </div>
-            </div>
-          </div>
+          )}
 
           {/* Titração basal */}
           <div className="card-clinical space-y-3">
