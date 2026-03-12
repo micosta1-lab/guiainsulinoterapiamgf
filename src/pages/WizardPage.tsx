@@ -68,12 +68,13 @@ const WizardPage = () => {
           <button onClick={() => navigate("/")} className="text-muted-foreground hover:text-foreground">
             <ArrowLeft className="w-5 h-5" />
           </button>
-          <Syringe className="w-5 h-5 text-primary" />
+          <img src={logoUSF} alt="USF Marginal" className="h-8 w-auto" />
           <span className="font-heading font-semibold text-foreground">
             {flowType === "primeira" ? "Primeira prescrição" : "Intensificar prescrição"}
           </span>
-          <span className="text-xs text-muted-foreground ml-auto font-body">
+          <span className="text-xs text-muted-foreground ml-auto font-body flex items-center gap-3">
             Passo {step + 1} de {steps.length}
+            <img src={logoULS} alt="ULS Lisboa Ocidental" className="h-6 w-auto hidden sm:block" />
           </span>
         </div>
       </header>
