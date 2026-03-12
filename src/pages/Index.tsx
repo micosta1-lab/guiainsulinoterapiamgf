@@ -1,6 +1,8 @@
 import { Syringe, TrendingUp, Shield, BookOpen } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import DisclaimerBanner from "@/components/DisclaimerBanner";
+import logoUSF from "@/assets/logo-usf-marginal.png";
+import logoULS from "@/assets/logo-uls-lisboa.png";
 
 const Index = () => {
   const navigate = useNavigate();
