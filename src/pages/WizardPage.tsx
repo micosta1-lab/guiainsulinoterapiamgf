@@ -10,9 +10,9 @@ import logoUSF from "@/assets/logo-usf-marginal.png";
 import logoULS from "@/assets/logo-uls-lisboa.png";
 
 const STEPS_PRIMEIRA = [
-  "Dados demográficos",
+  "Indicações para insulinoterapia",
+  "Dados do doente",
   "Valores laboratoriais",
-  "Sinais de alerta",
   "Terapêutica atual",
   "Perfil do doente",
   "Hipoglicemias",
@@ -20,9 +20,9 @@ const STEPS_PRIMEIRA = [
 ];
 
 const STEPS_INTENSIFICAR = [
-  "Dados demográficos",
+  "Indicações para insulinoterapia",
+  "Dados do doente",
   "Valores laboratoriais",
-  "Sinais de alerta",
   "Terapêutica atual",
   "Perfil do doente",
   "Hipoglicemias",
@@ -44,9 +44,8 @@ const WizardPage = () => {
   }, []);
 
   const canNext = () => {
-    // Minimal validation per step
-    if (step === 0) return data.idade !== undefined && data.peso !== undefined;
-    if (step === 1) return data.hba1c !== undefined;
+    if (step === 1) return data.idade !== undefined && data.peso !== undefined;
+    if (step === 2) return data.hba1c !== undefined;
     return true;
   };
 
@@ -136,8 +135,40 @@ interface StepContentProps {
 }
 
 const StepContent = ({ step, data, update, flow, totalSteps }: StepContentProps) => {
-  // Step 0: Demographics
+  // Step 0: Indicações para insulinoterapia
   if (step === 0) {
+    return (
+      <div className="space-y-4">
+        <p className="text-sm text-muted-foreground">Assinale as indicações aplicáveis ao doente. Estes critérios ajudam a fundamentar a decisão de insulinoterapia.</p>
+        {([
+          { key: "sintomasCatabolicos" as const, label: "Sintomatologia espoliativa franca (poliúria, polidipsia, polifagia) e perda ponderal" },
+          { key: "cetonuriaPositiva" as const, label: "Cetonúria positiva" },
+          { key: "patologiaAguda" as const, label: "Descompensação metabólica devido a patologia médica aguda intercorrente" },
+          { key: "insuficienciaRenalHepatica" as const, label: "Insuficiência renal ou hepática que contraindique ADO" },
+          { key: "reacoesAdversasADO" as const, label: "Reações adversas / intolerâncias / contraindicações a ADO" },
+          { key: "terapeuticaOtimizadaHba1cAcima" as const, label: "Terapêutica farmacológica não insulínica otimizada e HbA1c acima do alvo" },
+          { key: "internamentoCirurgia" as const, label: "Internamento e/ou cirurgia" },
+          { key: "gravidez" as const, label: "Gravidez" },
+        ]).map(({ key, label }) => (
+          <label key={key} className="flex items-center gap-3 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={!!data[key]}
+              onChange={(e) => update({ [key]: e.target.checked })}
+              className="w-5 h-5 rounded border-input text-primary focus:ring-ring accent-primary"
+            />
+            <span className="text-sm font-body text-foreground">{label}</span>
+          </label>
+        ))}
+        <div className="bg-muted/50 rounded-lg p-3 text-xs text-muted-foreground mt-2">
+          <strong>Nota:</strong> Valores laboratoriais (glicemia jejum {">"} 250 mg/dL, glicemia ocasional {">"} 300 mg/dL, HbA1c {">"} 10%) serão avaliados automaticamente no passo seguinte.
+        </div>
+      </div>
+    );
+  }
+
+  // Step 1: Demographics
+  if (step === 1) {
     return (
       <div className="space-y-5">
         <FieldGroup label="Idade" required>
@@ -157,8 +188,8 @@ const StepContent = ({ step, data, update, flow, totalSteps }: StepContentProps)
     );
   }
 
-  // Step 1: Lab values
-  if (step === 1) {
+  // Step 2: Lab values
+  if (step === 2) {
     return (
       <div className="space-y-5">
         <FieldGroup label="HbA1c" required tooltip="Última HbA1c disponível">
@@ -178,36 +209,6 @@ const StepContent = ({ step, data, update, flow, totalSteps }: StepContentProps)
             <NumberInput value={data.glicemiaCeia} onChange={(v) => update({ glicemiaCeia: v })} placeholder="Opcional" unit="mg/dL" />
           </FieldGroup>
         )}
-      </div>
-    );
-  }
-
-  // Step 2: Red flags
-  if (step === 2) {
-    return (
-      <div className="space-y-4">
-        <p className="text-sm text-muted-foreground">Assinale os que se aplicam. Estes dados podem indicar necessidade de referenciação.</p>
-        {([
-          { key: "sintomasCatabolicos" as const, label: "Sintomas catabólicos/espoliativos", tooltip: "Poliúria, polidipsia, astenia marcada" },
-          { key: "perdaPonderal" as const, label: "Perda ponderal significativa", tooltip: undefined },
-          { key: "cetonuriaPositiva" as const, label: "Cetonúria positiva", tooltip: undefined },
-          { key: "patologiaAguda" as const, label: "Patologia aguda intercorrente", tooltip: undefined },
-          { key: "internamentoCirurgia" as const, label: "Internamento/cirurgia programada ou recente", tooltip: undefined },
-          { key: "insuficienciaRenalHepatica" as const, label: "Insuficiência renal/hepática ou contraindicação a ADO", tooltip: undefined },
-          { key: "gravidez" as const, label: "Gravidez", tooltip: undefined },
-        ]).map(({ key, label, tooltip }) => (
-          <FieldGroup key={key} label="" tooltip={tooltip}>
-            <label className="flex items-center gap-3 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={!!data[key]}
-                onChange={(e) => update({ [key]: e.target.checked })}
-                className="w-5 h-5 rounded border-input text-primary focus:ring-ring accent-primary"
-              />
-              <span className="text-sm font-body text-foreground">{label}</span>
-            </label>
-          </FieldGroup>
-        ))}
       </div>
     );
   }
