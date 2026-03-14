@@ -249,6 +249,21 @@ const StepContent = ({ step, data, update, flow, totalSteps }: StepContentProps)
             </FieldGroup>
           </>
         )}
+
+        {data.terapeuticaAtual === "basal_rapida" && (
+          <>
+            <FieldGroup label="Tipo de insulina rápida atual">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                {["Lispro", "Aspártico", "Glulisina", "Regular/Humana"].map((t) => (
+                  <SegmentedOption key={t} label={t} selected={data.tipoInsulinaRapida === t} onClick={() => update({ tipoInsulinaRapida: t })} />
+                ))}
+              </div>
+            </FieldGroup>
+            <FieldGroup label="Dose atual de insulina rápida" tooltip="Dose total diária de rápida em unidades">
+              <NumberInput value={data.doseRapidaAtual} onChange={(v) => update({ doseRapidaAtual: v })} placeholder="Ex: 18" unit="U/dia" />
+            </FieldGroup>
+          </>
+        )}
       </div>
     );
   }
@@ -354,6 +369,8 @@ const StepContent = ({ step, data, update, flow, totalSteps }: StepContentProps)
           <div><strong>Glicemia jejum:</strong> {data.glicemiaJejum ?? "—"} mg/dL</div>
           <div><strong>Terapêutica:</strong> {data.terapeuticaAtual?.replace(/_/g, " ") ?? "—"}</div>
           {data.doseBasalAtual && <div><strong>Dose basal:</strong> {data.doseBasalAtual} U/dia</div>}
+          {data.tipoInsulinaRapida && <div><strong>Insulina rápida:</strong> {data.tipoInsulinaRapida}</div>}
+          {data.doseRapidaAtual && <div><strong>Dose rápida:</strong> {data.doseRapidaAtual} U/dia</div>}
         </div>
         {data.gravidez && (
           <div className="alert-redflag text-sm flex items-start gap-2">

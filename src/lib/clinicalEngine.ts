@@ -215,10 +215,17 @@ function getEstrategiasIntensificacao(data: PatientData): IntensificationStrateg
     });
   }
 
+  const doseRapida = data.doseRapidaAtual || 4;
+  const tipoRapida = data.tipoInsulinaRapida || "Lispro";
+
   strategies.push({
     nome: "Adicionar insulina rápida à refeição principal",
-    descricao: `Dose inicial: 4 U ou 0,1 U/kg (${Math.round(peso * 0.1)} U) ou 10% da basal (${Math.round(doseBasal * 0.1)} U). Administrar na refeição com maior impacto glicémico.`,
-    justificacao: "Estratégia basal-plus: permite controlo pós-prandial focado com menor complexidade",
+    descricao: data.terapeuticaAtual === "basal_rapida"
+      ? `Atualmente faz ${tipoRapida} ${doseRapida} U/dia. Considerar ajuste de dose ou adicionar a outra refeição. Titular conforme tabela pós-prandial.`
+      : `Dose inicial: 4 U ou 0,1 U/kg (${Math.round(peso * 0.1)} U) ou 10% da basal (${Math.round(doseBasal * 0.1)} U). Administrar na refeição com maior impacto glicémico.`,
+    justificacao: data.terapeuticaAtual === "basal_rapida"
+      ? `Já faz ${tipoRapida} — avaliar se dose atual (${doseRapida} U) é adequada e se deve estender a mais refeições`
+      : "Estratégia basal-plus: permite controlo pós-prandial focado com menor complexidade",
     principal: !preMix.sugerir,
     exemplosInsulinas: [
       "Lispro (Humalog®)",
