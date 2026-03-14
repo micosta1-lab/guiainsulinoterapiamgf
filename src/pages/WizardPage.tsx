@@ -413,7 +413,12 @@ const StepContent = ({ step, data, update, flow, totalSteps }: StepContentProps)
           <div><strong>Terapêutica:</strong> {data.terapeuticaAtual?.replace(/_/g, " ") ?? "—"}</div>
           {data.doseBasalAtual && <div><strong>Dose basal:</strong> {data.doseBasalAtual} U/dia</div>}
           {data.tipoInsulinaRapida && <div><strong>Insulina rápida:</strong> {data.tipoInsulinaRapida}</div>}
-          {data.doseRapidaAtual && <div><strong>Dose rápida:</strong> {data.doseRapidaAtual} U/dia</div>}
+          {data.rapidaRefeicoes && Object.entries(data.rapidaRefeicoes).filter(([, v]) => !!v).length > 0 && (
+            <div><strong>Rápida por refeição:</strong> {Object.entries(data.rapidaRefeicoes).filter(([, v]) => !!v).map(([k, v]) => {
+              const labels: Record<string, string> = { pequenoAlmoco: "Peq-almoço", almoco: "Almoço", jantar: "Jantar" };
+              return `${labels[k] || k}: ${v?.dose || "?"} U`;
+            }).join(", ")}</div>
+          )}
         </div>
         {data.gravidez && (
           <div className="alert-redflag text-sm flex items-start gap-2">
