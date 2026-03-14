@@ -30,7 +30,11 @@ export interface PatientData {
   doseBasalAtual?: number;
   tipoInsulina?: string;
   tipoInsulinaRapida?: string;
-  doseRapidaAtual?: number;
+  rapidaRefeicoes?: {
+    pequenoAlmoco?: { dose?: number };
+    almoco?: { dose?: number };
+    jantar?: { dose?: number };
+  };
 
   // Lifestyle
   regularidadeRefeicoes?: "regular" | "irregular";

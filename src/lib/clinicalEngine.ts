@@ -256,7 +256,7 @@ function getEstrategiasIntensificacao(data: PatientData): IntensificationStrateg
     principal: false,
     exemplosInsulinas: [
       "Basal: Glargina U100 (Lantus®), Degludec (Tresiba®)",
-      "Rápida: Lispro (Humalog®), Aspártico (NovoRapid®), Glulisina (Apidra®)",
+      "Rápida: Lispro (Humalog®), Aspart (NovoRapid®), Glulisina (Apidra®)",
     ],
   });
 
