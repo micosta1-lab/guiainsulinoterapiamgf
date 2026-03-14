@@ -10,9 +10,9 @@ import logoUSF from "@/assets/logo-usf-marginal.png";
 import logoULS from "@/assets/logo-uls-lisboa.png";
 
 const STEPS_PRIMEIRA = [
-  "Dados demográficos",
+  "Indicações para insulinoterapia",
+  "Dados do doente",
   "Valores laboratoriais",
-  "Sinais de alerta",
   "Terapêutica atual",
   "Perfil do doente",
   "Hipoglicemias",
