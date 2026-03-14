@@ -10,7 +10,7 @@ import logoUSF from "@/assets/logo-usf-marginal.png";
 import logoULS from "@/assets/logo-uls-lisboa.png";
 
 const STEPS_PRIMEIRA = [
-  "Indicações para insulinoterapia",
+  "Indicações",
   "Dados do doente",
   "Valores laboratoriais",
   "Terapêutica atual",
@@ -20,7 +20,7 @@ const STEPS_PRIMEIRA = [
 ];
 
 const STEPS_INTENSIFICAR = [
-  "Indicações para insulinoterapia",
+  "Indicações",
   "Dados do doente",
   "Valores laboratoriais",
   "Terapêutica atual",
@@ -141,6 +141,7 @@ const StepContent = ({ step, data, update, flow, totalSteps }: StepContentProps)
       <div className="space-y-4">
         <p className="text-sm text-muted-foreground">Assinale as indicações aplicáveis ao doente. Estes critérios ajudam a fundamentar a decisão de insulinoterapia.</p>
         {([
+          { key: "valoresLaboratoriaisAlterados" as const, label: "Valores laboratoriais alterados (glicemia jejum > 250 mg/dL, glicemia ocasional > 300 mg/dL, HbA1c > 10%)" },
           { key: "sintomasCatabolicos" as const, label: "Sintomatologia espoliativa franca (poliúria, polidipsia, polifagia) e perda ponderal" },
           { key: "cetonuriaPositiva" as const, label: "Cetonúria positiva" },
           { key: "patologiaAguda" as const, label: "Descompensação metabólica devido a patologia médica aguda intercorrente" },
@@ -160,9 +161,6 @@ const StepContent = ({ step, data, update, flow, totalSteps }: StepContentProps)
             <span className="text-sm font-body text-foreground">{label}</span>
           </label>
         ))}
-        <div className="bg-muted/50 rounded-lg p-3 text-xs text-muted-foreground mt-2">
-          <strong>Nota:</strong> Valores laboratoriais (glicemia jejum {">"} 250 mg/dL, glicemia ocasional {">"} 300 mg/dL, HbA1c {">"} 10%) serão avaliados automaticamente no passo seguinte.
-        </div>
       </div>
     );
   }

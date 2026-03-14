@@ -23,6 +23,7 @@ export interface PatientData {
   gravidez?: boolean;
   terapeuticaOtimizadaHba1cAcima?: boolean;
   reacoesAdversasADO?: boolean;
+  valoresLaboratoriaisAlterados?: boolean;
 
   // Current therapy
   terapeuticaAtual?: "sem_insulina" | "basal" | "basal_rapida" | "pre_mistura" | "outros_ado";
