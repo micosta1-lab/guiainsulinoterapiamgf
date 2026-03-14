@@ -254,13 +254,56 @@ const StepContent = ({ step, data, update, flow, totalSteps }: StepContentProps)
           <>
             <FieldGroup label="Tipo de insulina rápida atual">
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                {["Lispro", "Aspártico", "Glulisina", "Regular/Humana"].map((t) => (
+                {["Lispro", "Aspart", "Glulisina", "Regular/Humana"].map((t) => (
                   <SegmentedOption key={t} label={t} selected={data.tipoInsulinaRapida === t} onClick={() => update({ tipoInsulinaRapida: t })} />
                 ))}
               </div>
             </FieldGroup>
-            <FieldGroup label="Dose atual de insulina rápida" tooltip="Dose total diária de rápida em unidades">
-              <NumberInput value={data.doseRapidaAtual} onChange={(v) => update({ doseRapidaAtual: v })} placeholder="Ex: 18" unit="U/dia" />
+            <FieldGroup label="Em que refeições faz insulina rápida?">
+              <div className="space-y-3">
+                {([
+                  { key: "pequenoAlmoco" as const, label: "Pequeno-almoço" },
+                  { key: "almoco" as const, label: "Almoço" },
+                  { key: "jantar" as const, label: "Jantar" },
+                ]).map(({ key, label }) => {
+                  const refeicoes = data.rapidaRefeicoes || {};
+                  const isChecked = !!refeicoes[key];
+                  return (
+                    <div key={key} className="space-y-1.5">
+                      <label className="flex items-center gap-3 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={isChecked}
+                          onChange={(e) => {
+                            const updated = { ...refeicoes };
+                            if (e.target.checked) {
+                              updated[key] = { dose: undefined };
+                            } else {
+                              delete updated[key];
+                            }
+                            update({ rapidaRefeicoes: updated });
+                          }}
+                          className="w-5 h-5 rounded border-input text-primary focus:ring-ring accent-primary"
+                        />
+                        <span className="text-sm font-body text-foreground">{label}</span>
+                      </label>
+                      {isChecked && (
+                        <div className="ml-8">
+                          <NumberInput
+                            value={refeicoes[key]?.dose}
+                            onChange={(v) => {
+                              const updated = { ...refeicoes, [key]: { dose: v } };
+                              update({ rapidaRefeicoes: updated });
+                            }}
+                            placeholder="Dose"
+                            unit="U"
+                          />
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
             </FieldGroup>
           </>
         )}
