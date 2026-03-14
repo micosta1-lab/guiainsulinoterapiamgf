@@ -21,6 +21,8 @@ export interface PatientData {
   internamentoCirurgia?: boolean;
   insuficienciaRenalHepatica?: boolean;
   gravidez?: boolean;
+  terapeuticaOtimizadaHba1cAcima?: boolean;
+  reacoesAdversasADO?: boolean;
 
   // Current therapy
   terapeuticaAtual?: "sem_insulina" | "basal" | "basal_rapida" | "pre_mistura" | "outros_ado";
