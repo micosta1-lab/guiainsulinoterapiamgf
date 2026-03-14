@@ -218,11 +218,11 @@ const StepContent = ({ step, data, update, flow, totalSteps }: StepContentProps)
         <FieldGroup label="Terapêutica atual" required>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {([
-              { value: "sem_insulina", label: "Sem insulina", sub: "ADO apenas" },
+              { value: "sem_insulina", label: "Sem medicação", sub: "Não faz nenhuma medicação" },
               { value: "basal", label: "Insulina basal", sub: "Uma vez/dia" },
               { value: "basal_rapida", label: "Basal + rápida", sub: "Basal-bólus" },
               { value: "pre_mistura", label: "Pré-mistura", sub: "Insulina bifásica" },
-              { value: "outros_ado", label: "Outros ADO", sub: "Sem insulina, ADO otimizados" },
+              { value: "outros_ado", label: "ADO otimizados", sub: "Sem insulina" },
             ] as const).map(({ value, label, sub }) => (
               <SegmentedOption
                 key={value}
