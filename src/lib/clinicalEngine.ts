@@ -215,21 +215,25 @@ function getEstrategiasIntensificacao(data: PatientData): IntensificationStrateg
     });
   }
 
-  const doseRapida = data.doseRapidaAtual || 4;
+  const refeicoes = data.rapidaRefeicoes || {};
   const tipoRapida = data.tipoInsulinaRapida || "Lispro";
+  const refLabels: Record<string, string> = { pequenoAlmoco: "Peq-almoço", almoco: "Almoço", jantar: "Jantar" };
+  const refEntries = Object.entries(refeicoes).filter(([, v]) => !!v);
+  const doseTotal = refEntries.reduce((sum, [, v]) => sum + (v?.dose || 0), 0);
+  const refDesc = refEntries.map(([k, v]) => `${refLabels[k] || k}: ${v?.dose || "?"} U`).join(", ");
 
   strategies.push({
     nome: "Adicionar insulina rápida à refeição principal",
     descricao: data.terapeuticaAtual === "basal_rapida"
-      ? `Atualmente faz ${tipoRapida} ${doseRapida} U/dia. Considerar ajuste de dose ou adicionar a outra refeição. Titular conforme tabela pós-prandial.`
+      ? `Atualmente faz ${tipoRapida} (${refDesc || "sem detalhe"}; total ${doseTotal} U/dia). Considerar ajuste de dose ou adicionar a outra refeição. Titular conforme tabela pós-prandial.`
       : `Dose inicial: 4 U ou 0,1 U/kg (${Math.round(peso * 0.1)} U) ou 10% da basal (${Math.round(doseBasal * 0.1)} U). Administrar na refeição com maior impacto glicémico.`,
     justificacao: data.terapeuticaAtual === "basal_rapida"
-      ? `Já faz ${tipoRapida} — avaliar se dose atual (${doseRapida} U) é adequada e se deve estender a mais refeições`
+      ? `Já faz ${tipoRapida} em ${refEntries.length} refeição(ões) — avaliar se doses atuais são adequadas e se deve estender a mais refeições`
       : "Estratégia basal-plus: permite controlo pós-prandial focado com menor complexidade",
     principal: !preMix.sugerir,
     exemplosInsulinas: [
       "Lispro (Humalog®)",
-      "Aspártico (NovoRapid®)",
+      "Aspart (NovoRapid®)",
       "Glulisina (Apidra®)",
     ],
   });
@@ -243,7 +247,7 @@ function getEstrategiasIntensificacao(data: PatientData): IntensificationStrateg
       exemplosInsulinas: [
         "Lispro/Lispro-protamina 25/75 (Humalog Mix 25®)",
         "Lispro/Lispro-protamina 50/50 (Humalog Mix 50®)",
-        "Aspártico/Asp-protamina 30/70 (NovoMix 30®)",
+        "Aspart/Asp-protamina 30/70 (NovoMix 30®)",
         "NPH/Regular 30/70 (Mixtard 30®, Humulin M3®)",
       ],
     });
@@ -256,7 +260,7 @@ function getEstrategiasIntensificacao(data: PatientData): IntensificationStrateg
     principal: false,
     exemplosInsulinas: [
       "Basal: Glargina U100 (Lantus®), Degludec (Tresiba®)",
-      "Rápida: Lispro (Humalog®), Aspártico (NovoRapid®), Glulisina (Apidra®)",
+      "Rápida: Lispro (Humalog®), Aspart (NovoRapid®), Glulisina (Apidra®)",
     ],
   });
 
