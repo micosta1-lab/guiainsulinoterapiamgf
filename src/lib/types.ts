@@ -29,6 +29,8 @@ export interface PatientData {
   terapeuticaAtual?: "sem_insulina" | "basal" | "basal_rapida" | "pre_mistura" | "outros_ado";
   doseBasalAtual?: number;
   tipoInsulina?: string;
+  tipoInsulinaRapida?: string;
+  doseRapidaAtual?: number;
 
   // Lifestyle
   regularidadeRefeicoes?: "regular" | "irregular";

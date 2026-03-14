@@ -249,6 +249,21 @@ const StepContent = ({ step, data, update, flow, totalSteps }: StepContentProps)
             </FieldGroup>
           </>
         )}
+
+        {data.terapeuticaAtual === "basal_rapida" && (
+          <>
+            <FieldGroup label="Tipo de insulina rápida atual">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                {["Lispro", "Aspártico", "Glulisina", "Regular/Humana"].map((t) => (
+                  <SegmentedOption key={t} label={t} selected={data.tipoInsulinaRapida === t} onClick={() => update({ tipoInsulinaRapida: t })} />
+                ))}
+              </div>
+            </FieldGroup>
+            <FieldGroup label="Dose atual de insulina rápida" tooltip="Dose total diária de rápida em unidades">
+              <NumberInput value={data.doseRapidaAtual} onChange={(v) => update({ doseRapidaAtual: v })} placeholder="Ex: 18" unit="U/dia" />
+            </FieldGroup>
+          </>
+        )}
       </div>
     );
   }
