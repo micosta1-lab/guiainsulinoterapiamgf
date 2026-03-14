@@ -243,7 +243,7 @@ function getEstrategiasIntensificacao(data: PatientData): IntensificationStrateg
       exemplosInsulinas: [
         "Lispro/Lispro-protamina 25/75 (Humalog Mix 25®)",
         "Lispro/Lispro-protamina 50/50 (Humalog Mix 50®)",
-        "Aspártico/Asp-protamina 30/70 (NovoMix 30®)",
+        "Aspart/Asp-protamina 30/70 (NovoMix 30®)",
         "NPH/Regular 30/70 (Mixtard 30®, Humulin M3®)",
       ],
     });
