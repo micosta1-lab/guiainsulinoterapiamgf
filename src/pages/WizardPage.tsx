@@ -44,9 +44,8 @@ const WizardPage = () => {
   }, []);
 
   const canNext = () => {
-    // Minimal validation per step
-    if (step === 0) return data.idade !== undefined && data.peso !== undefined;
-    if (step === 1) return data.hba1c !== undefined;
+    if (step === 1) return data.idade !== undefined && data.peso !== undefined;
+    if (step === 2) return data.hba1c !== undefined;
     return true;
   };
 
