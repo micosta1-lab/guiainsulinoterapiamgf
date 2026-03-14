@@ -20,9 +20,9 @@ const STEPS_PRIMEIRA = [
 ];
 
 const STEPS_INTENSIFICAR = [
-  "Dados demográficos",
+  "Indicações para insulinoterapia",
+  "Dados do doente",
   "Valores laboratoriais",
-  "Sinais de alerta",
   "Terapêutica atual",
   "Perfil do doente",
   "Hipoglicemias",
