@@ -229,7 +229,7 @@ function getEstrategiasIntensificacao(data: PatientData): IntensificationStrateg
     principal: !preMix.sugerir,
     exemplosInsulinas: [
       "Lispro (Humalog®)",
-      "Aspártico (NovoRapid®)",
+      "Aspart (NovoRapid®)",
       "Glulisina (Apidra®)",
     ],
   });
