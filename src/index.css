@@ -110,6 +110,10 @@
   h1, h2, h3, h4, h5, h6 {
     @apply font-heading;
   }
+
+  .dark img {
+    filter: brightness(1.15) contrast(0.95);
+  }
 }
 
 @layer components {
