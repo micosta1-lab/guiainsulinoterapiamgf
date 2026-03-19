@@ -2,18 +2,76 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Syringe, AlertTriangle, CheckCircle, Printer, RotateCcw,
-  ShieldAlert, TrendingUp, BookOpen, Heart, ClipboardList
+  ShieldAlert, TrendingUp, BookOpen, Heart, ClipboardList, Copy, Check
 } from "lucide-react";
 import type { ClinicalResult, PatientData } from "@/lib/types";
 import DisclaimerBanner from "@/components/DisclaimerBanner";
+import DarkModeToggle from "@/components/DarkModeToggle";
 import logoUSF from "@/assets/logo-usf-marginal.png";
 import logoULS from "@/assets/logo-uls-lisboa.png";
+
+function buildClinicalText(result: ClinicalResult, patientData: PatientData | null): string {
+  const lines: string[] = [];
+  lines.push("=== PLANO DE INSULINOTERAPIA ===");
+  lines.push("");
+
+  if (patientData) {
+    lines.push(`Idade: ${patientData.idade ?? "—"} anos | Peso: ${patientData.peso ?? "—"} kg | HbA1c: ${patientData.hba1c ?? "—"}%`);
+    lines.push(`Tipo de diabetes: ${patientData.tipoDiabetes === "outro" ? (patientData.outroTipoDiabetes || "Outro") : patientData.tipoDiabetes ?? "—"}`);
+    lines.push("");
+  }
+
+  if (result.flow === "primeira" && result.insulinaRecomendada) {
+    lines.push(`ESQUEMA: ${result.insulinaRecomendada.nome}`);
+    if (result.insulinaRecomendada.justificacao) lines.push(`Justificação: ${result.insulinaRecomendada.justificacao}`);
+    lines.push(`DOSE INICIAL: ${result.doseInicialEscolhida} U/dia`);
+    if (result.doseInicialPorPeso) lines.push(`Por peso: ${result.doseInicialPorPeso}`);
+    lines.push("");
+  }
+
+  lines.push("TITULAÇÃO BASAL (alvo jejum 80-130 mg/dL):");
+  lines.push(`Frequência: ${result.frequenciaTitulacao}`);
+  result.tabelaTitulacaoBasal.forEach(r => lines.push(`  ${r.faixa}: ${r.acao}`));
+  lines.push("");
+
+  if (result.estrategiasIntensificacao && result.estrategiasIntensificacao.length > 0) {
+    lines.push("ESTRATÉGIAS DE INTENSIFICAÇÃO:");
+    result.estrategiasIntensificacao.forEach(s => {
+      lines.push(`  ${s.principal ? "[RECOMENDADA] " : ""}${s.nome}`);
+      lines.push(`  ${s.descricao}`);
+    });
+    lines.push("");
+  }
+
+  if (result.tabelaTitulacaoRapida) {
+    lines.push("TITULAÇÃO RÁPIDA (alvo pós-prandial <180 mg/dL):");
+    result.tabelaTitulacaoRapida.forEach(r => lines.push(`  ${r.faixa}: ${r.acao}`));
+    lines.push("");
+  }
+
+  lines.push("SEGUIMENTO:");
+  result.seguimentoUSF.forEach(s => lines.push(`  • ${s}`));
+  lines.push("");
+
+  if (result.recomendacoesHipoglicemia.length > 0) {
+    lines.push("HIPOGLICEMIA:");
+    result.recomendacoesHipoglicemia.forEach(r => lines.push(`  • ${r}`));
+    lines.push("");
+  }
+
+  if (result.necessitaReferenciacao) {
+    lines.push(`⚠ REFERENCIAÇÃO: ${result.motivoReferenciacao}`);
+  }
+
+  return lines.join("\n");
+}
 
 const ResultsPage = () => {
   const navigate = useNavigate();
   const [result, setResult] = useState<ClinicalResult | null>(null);
-  const [_patientData, setPatientData] = useState<PatientData | null>(null);
+  const [patientData, setPatientData] = useState<PatientData | null>(null);
   const [followUp, setFollowUp] = useState("");
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     const r = sessionStorage.getItem("clinicalResult");
@@ -45,6 +103,21 @@ const ResultsPage = () => {
             <span className="font-heading font-semibold text-foreground">Resumo de apoio à prescrição</span>
           </div>
           <div className="flex items-center gap-2">
+            <button
+              onClick={() => {
+                if (result) {
+                  const text = buildClinicalText(result, patientData);
+                  navigator.clipboard.writeText(text).then(() => {
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 2000);
+                  });
+                }
+              }}
+              className="px-4 py-2 text-sm font-heading font-medium text-muted-foreground border border-border rounded-lg hover:bg-muted flex items-center gap-2"
+            >
+              {copied ? <Check className="w-4 h-4 text-success" /> : <Copy className="w-4 h-4" />}
+              {copied ? "Copiado!" : "Copiar texto"}
+            </button>
             <button onClick={() => window.print()} className="btn-primary-large text-sm px-4 py-2 flex items-center gap-2">
               <Printer className="w-4 h-4" /> Imprimir / PDF
             </button>
@@ -54,6 +127,7 @@ const ResultsPage = () => {
             >
               <RotateCcw className="w-4 h-4 inline mr-1" /> Novo doente
             </button>
+            <DarkModeToggle />
             <img src={logoULS} alt="ULS Lisboa Ocidental" className="h-6 w-auto hidden sm:block" />
           </div>
         </div>

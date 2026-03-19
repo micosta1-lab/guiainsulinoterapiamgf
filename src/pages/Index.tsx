@@ -1,6 +1,7 @@
 import { Syringe, TrendingUp, Shield, BookOpen } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import DisclaimerBanner from "@/components/DisclaimerBanner";
+import DarkModeToggle from "@/components/DarkModeToggle";
 import logoUSF from "@/assets/logo-usf-marginal.png";
 import logoULS from "@/assets/logo-uls-lisboa.png";
 
@@ -21,7 +22,10 @@ const Index = () => {
               <p className="text-xs text-muted-foreground">Algoritmo clínico para DM2</p>
             </div>
           </div>
-          <img src={logoULS} alt="ULS Lisboa Ocidental" className="h-8 w-auto hidden sm:block" />
+          <div className="flex items-center gap-2">
+            <DarkModeToggle />
+            <img src={logoULS} alt="ULS Lisboa Ocidental" className="h-8 w-auto hidden sm:block" />
+          </div>
         </div>
       </header>
 

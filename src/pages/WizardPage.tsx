@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight, AlertTriangle } from "lucide-react";
 import type { PatientData, FlowType } from "@/lib/types";
 import { evaluatePatient } from "@/lib/clinicalEngine";
 import DisclaimerBanner from "@/components/DisclaimerBanner";
+import DarkModeToggle from "@/components/DarkModeToggle";
 import WizardProgress from "@/components/WizardProgress";
 import { FieldGroup, SegmentedOption, NumberInput } from "@/components/WizardFields";
 import logoUSF from "@/assets/logo-usf-marginal.png";
@@ -73,6 +74,7 @@ const WizardPage = () => {
           </span>
           <span className="text-xs text-muted-foreground ml-auto font-body flex items-center gap-3">
             Passo {step + 1} de {steps.length}
+            <DarkModeToggle />
             <img src={logoULS} alt="ULS Lisboa Ocidental" className="h-6 w-auto hidden sm:block" />
           </span>
         </div>
@@ -178,7 +180,7 @@ const StepContent = ({ step, data, update, flow, totalSteps }: StepContentProps)
         <FieldGroup label="Tipo de diabetes" required tooltip="Esta ferramenta é otimizada para DM2. Se suspeita de DM1, referenciar.">
           <div className="grid grid-cols-3 gap-2">
             {(["DM2", "DM1", "outro"] as const).map((t) => (
-              <SegmentedOption key={t} label={t === "DM1" ? "DM1 / DMI" : t === "outro" ? "Outro" : t} selected={data.tipoDiabetes === t} onClick={() => update({ tipoDiabetes: t, ...(t !== "outro" ? { outroTipoDiabetes: undefined } : {}) })} />
+              <SegmentedOption key={t} label={t === "outro" ? "Outro" : t} selected={data.tipoDiabetes === t} onClick={() => update({ tipoDiabetes: t, ...(t !== "outro" ? { outroTipoDiabetes: undefined } : {}) })} />
             ))}
           </div>
           {data.tipoDiabetes === "outro" && (
