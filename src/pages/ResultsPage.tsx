@@ -69,8 +69,9 @@ function buildClinicalText(result: ClinicalResult, patientData: PatientData | nu
 const ResultsPage = () => {
   const navigate = useNavigate();
   const [result, setResult] = useState<ClinicalResult | null>(null);
-  const [_patientData, setPatientData] = useState<PatientData | null>(null);
+  const [patientData, setPatientData] = useState<PatientData | null>(null);
   const [followUp, setFollowUp] = useState("");
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     const r = sessionStorage.getItem("clinicalResult");
