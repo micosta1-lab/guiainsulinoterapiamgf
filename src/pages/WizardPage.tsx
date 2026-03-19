@@ -74,6 +74,7 @@ const WizardPage = () => {
           </span>
           <span className="text-xs text-muted-foreground ml-auto font-body flex items-center gap-3">
             Passo {step + 1} de {steps.length}
+            <DarkModeToggle />
             <img src={logoULS} alt="ULS Lisboa Ocidental" className="h-6 w-auto hidden sm:block" />
           </span>
         </div>

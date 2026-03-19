@@ -22,7 +22,10 @@ const Index = () => {
               <p className="text-xs text-muted-foreground">Algoritmo clínico para DM2</p>
             </div>
           </div>
-          <img src={logoULS} alt="ULS Lisboa Ocidental" className="h-8 w-auto hidden sm:block" />
+          <div className="flex items-center gap-2">
+            <DarkModeToggle />
+            <img src={logoULS} alt="ULS Lisboa Ocidental" className="h-8 w-auto hidden sm:block" />
+          </div>
         </div>
       </header>
 
