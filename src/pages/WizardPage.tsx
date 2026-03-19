@@ -178,7 +178,7 @@ const StepContent = ({ step, data, update, flow, totalSteps }: StepContentProps)
         <FieldGroup label="Tipo de diabetes" required tooltip="Esta ferramenta é otimizada para DM2. Se suspeita de DM1, referenciar.">
           <div className="grid grid-cols-3 gap-2">
             {(["DM2", "DM1", "outro"] as const).map((t) => (
-              <SegmentedOption key={t} label={t === "DM1" ? "DM1 / DMI" : t === "outro" ? "Outro" : t} selected={data.tipoDiabetes === t} onClick={() => update({ tipoDiabetes: t, ...(t !== "outro" ? { outroTipoDiabetes: undefined } : {}) })} />
+              <SegmentedOption key={t} label={t === "outro" ? "Outro" : t} selected={data.tipoDiabetes === t} onClick={() => update({ tipoDiabetes: t, ...(t !== "outro" ? { outroTipoDiabetes: undefined } : {}) })} />
             ))}
           </div>
           {data.tipoDiabetes === "outro" && (
