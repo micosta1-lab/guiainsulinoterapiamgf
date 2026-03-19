@@ -66,8 +66,8 @@ function detectRedFlags(data: PatientData): RedFlag[] {
   if (data.cetonuriaPositiva) {
     flags.push({ id: "cetonuria", message: "Cetonúria positiva — excluir DM1 / cetoacidose. Considerar referenciação urgente", severity: "urgent" });
   }
-  if (data.tipoDiabetes === "DM1" || data.tipoDiabetes === "DMI") {
-    flags.push({ id: "dm1", message: "Suspeita de DM1/DMI — referenciar a consulta hospitalar de Endocrinologia/Diabetologia", severity: "urgent" });
+  if (data.tipoDiabetes === "DM1") {
+    flags.push({ id: "dm1", message: "Suspeita de DM1 — referenciar a consulta hospitalar de Endocrinologia/Diabetologia", severity: "urgent" });
   }
   if (data.patologiaAguda) {
     flags.push({ id: "aguda", message: "Descompensação aguda intercorrente — considerar avaliação hospitalar", severity: "urgent" });
