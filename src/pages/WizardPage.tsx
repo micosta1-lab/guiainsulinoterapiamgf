@@ -95,7 +95,7 @@ const WizardPage = () => {
             {data.tipoDiabetes && data.tipoDiabetes !== "DM2" && (
               <div className="alert-redflag flex items-start gap-2 text-sm">
                 <AlertTriangle className="w-4 h-4 mt-0.5 shrink-0" />
-                <span>Esta ferramenta foi concebida para DM2. Para outros tipos de diabetes, os resultados podem não ser adequados. Considere referenciação especializada.</span>
+                <span>Esta ferramenta foi concebida para DM2. Para {data.tipoDiabetes === "outro" ? (data.outroTipoDiabetes || "outros tipos") : data.tipoDiabetes}, os resultados podem não ser adequados. Considere referenciação especializada.</span>
               </div>
             )}
 

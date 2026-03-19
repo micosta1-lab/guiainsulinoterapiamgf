@@ -235,7 +235,7 @@ const ResultsPage = () => {
                 <ClipboardList className="w-5 h-5" />
                 <h3 className="font-heading font-bold">Ajuste da rápida/prandial</h3>
               </div>
-              <p className="text-xs text-muted-foreground">Glicemia pós-prandial 2h</p>
+              <p className="text-xs text-muted-foreground">Alvo: glicemia pós-prandial 2h &lt;180 mg/dL</p>
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-border">
