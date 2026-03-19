@@ -126,7 +126,7 @@
   }
 
   .alert-warning {
-    @apply bg-warning/10 border border-warning/30 text-amber-800 rounded-lg p-4;
+    @apply bg-warning/10 border border-warning/30 text-amber-800 dark:text-amber-300 rounded-lg p-4;
   }
 
   .alert-info {
