@@ -103,6 +103,21 @@ const ResultsPage = () => {
             <span className="font-heading font-semibold text-foreground">Resumo de apoio à prescrição</span>
           </div>
           <div className="flex items-center gap-2">
+            <button
+              onClick={() => {
+                if (result) {
+                  const text = buildClinicalText(result, patientData);
+                  navigator.clipboard.writeText(text).then(() => {
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 2000);
+                  });
+                }
+              }}
+              className="px-4 py-2 text-sm font-heading font-medium text-muted-foreground border border-border rounded-lg hover:bg-muted flex items-center gap-2"
+            >
+              {copied ? <Check className="w-4 h-4 text-success" /> : <Copy className="w-4 h-4" />}
+              {copied ? "Copiado!" : "Copiar texto"}
+            </button>
             <button onClick={() => window.print()} className="btn-primary-large text-sm px-4 py-2 flex items-center gap-2">
               <Printer className="w-4 h-4" /> Imprimir / PDF
             </button>
@@ -112,6 +127,7 @@ const ResultsPage = () => {
             >
               <RotateCcw className="w-4 h-4 inline mr-1" /> Novo doente
             </button>
+            <DarkModeToggle />
             <img src={logoULS} alt="ULS Lisboa Ocidental" className="h-6 w-auto hidden sm:block" />
           </div>
         </div>
