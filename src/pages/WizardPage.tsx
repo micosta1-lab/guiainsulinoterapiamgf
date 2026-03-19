@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight, AlertTriangle } from "lucide-react";
 import type { PatientData, FlowType } from "@/lib/types";
 import { evaluatePatient } from "@/lib/clinicalEngine";
 import DisclaimerBanner from "@/components/DisclaimerBanner";
+import DarkModeToggle from "@/components/DarkModeToggle";
 import WizardProgress from "@/components/WizardProgress";
 import { FieldGroup, SegmentedOption, NumberInput } from "@/components/WizardFields";
 import logoUSF from "@/assets/logo-usf-marginal.png";
