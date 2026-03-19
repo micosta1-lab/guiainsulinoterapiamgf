@@ -4,7 +4,7 @@ export interface PatientData {
   // Demographics
   idade?: number;
   peso?: number;
-  tipoDiabetes?: "DM2" | "DM1" | "DMI" | "outro";
+  tipoDiabetes?: "DM2" | "DM1" | "outro";
   outroTipoDiabetes?: string;
 
   // Lab values
