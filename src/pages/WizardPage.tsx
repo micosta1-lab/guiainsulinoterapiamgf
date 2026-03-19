@@ -176,11 +176,22 @@ const StepContent = ({ step, data, update, flow, totalSteps }: StepContentProps)
           <NumberInput value={data.peso} onChange={(v) => update({ peso: v })} placeholder="Ex: 78" unit="kg" min={30} max={250} />
         </FieldGroup>
         <FieldGroup label="Tipo de diabetes" required tooltip="Esta ferramenta é otimizada para DM2. Se suspeita de DM1, referenciar.">
-          <div className="grid grid-cols-3 gap-2">
-            {(["DM2", "DM1", "outro"] as const).map((t) => (
-              <SegmentedOption key={t} label={t === "outro" ? "Outro" : t} selected={data.tipoDiabetes === t} onClick={() => update({ tipoDiabetes: t })} />
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            {(["DM2", "DM1", "DMI", "outro"] as const).map((t) => (
+              <SegmentedOption key={t} label={t === "outro" ? "Outro" : t} selected={data.tipoDiabetes === t} onClick={() => update({ tipoDiabetes: t, ...(t !== "outro" ? { outroTipoDiabetes: undefined } : {}) })} />
             ))}
           </div>
+          {data.tipoDiabetes === "outro" && (
+            <div className="mt-2">
+              <input
+                type="text"
+                value={data.outroTipoDiabetes ?? ""}
+                onChange={(e) => update({ outroTipoDiabetes: e.target.value })}
+                placeholder="Especifique (ex: MODY, LADA, gestacional)"
+                className="w-full px-3 py-2.5 rounded-lg border border-input bg-card text-foreground text-sm font-body focus:outline-none focus:ring-2 focus:ring-ring"
+              />
+            </div>
+          )}
         </FieldGroup>
       </div>
     );
