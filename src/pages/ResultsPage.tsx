@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Syringe, AlertTriangle, CheckCircle, Printer, RotateCcw,
-  ShieldAlert, TrendingUp, BookOpen, Heart, ClipboardList, Copy, Check
+  ShieldAlert, TrendingUp, BookOpen, Heart, ClipboardList, Copy, Check, Download
 } from "lucide-react";
 import type { ClinicalResult, PatientData } from "@/lib/types";
 import DisclaimerBanner from "@/components/DisclaimerBanner";
