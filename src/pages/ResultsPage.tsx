@@ -283,111 +283,116 @@ const ResultsPage = () => {
             </div>
           )}
 
-          {/* Pharmacokinetic reference — full width */}
-          <div className="card-clinical space-y-3 md:col-span-2">
-            <div className="flex items-center gap-2 text-primary">
-              <Activity className="w-5 h-5" />
-              <h3 className="font-heading font-bold">Perfil farmacológico das insulinas</h3>
-            </div>
-            <p className="text-xs text-muted-foreground">Dados farmacocinéticos de referência — fonte: ALAD/SDNU/SWME 2015</p>
+          {/* Pharmacokinetic reference — collapsible */}
+          <div className="md:col-span-2">
+            <details className="card-clinical">
+              <summary className="flex items-center gap-2 text-primary cursor-pointer">
+                <Activity className="w-5 h-5" />
+                <span className="font-heading font-bold">Perfil farmacológico das insulinas</span>
+                <span className="text-xs text-muted-foreground ml-auto font-body">clique para expandir</span>
+              </summary>
+              <div className="mt-4 space-y-4">
+                <p className="text-xs text-muted-foreground">Dados farmacocinéticos de referência — fonte: ALAD/SDNU/SWME 2015</p>
 
-            {/* Basal insulins */}
-            <div>
-              <p className="text-xs font-heading font-semibold text-foreground mb-2 flex items-center gap-1.5">
-                <Syringe className="w-3.5 h-3.5 text-primary" /> Insulinas basais
-              </p>
-              <div className="overflow-x-auto">
-                <table className="w-full text-xs">
-                  <thead>
-                    <tr className="border-b border-border bg-muted/50">
-                      <th className="text-left py-2 px-2 font-heading font-semibold text-foreground">Insulina</th>
-                      <th className="text-left py-2 px-2 font-heading font-semibold text-foreground">Início</th>
-                      <th className="text-left py-2 px-2 font-heading font-semibold text-foreground">Pico</th>
-                      <th className="text-left py-2 px-2 font-heading font-semibold text-foreground">Duração</th>
-                      <th className="text-left py-2 px-2 font-heading font-semibold text-foreground hidden sm:table-cell">Nomes comerciais</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {result.opcoesInsulina.filter(o => o.tipo === "basal").map((o, i) => (
-                      <tr key={i} className={`border-b border-border/50 ${o.recomendado ? "bg-primary/5" : ""}`}>
-                        <td className="py-2 px-2 font-body font-medium text-foreground">
-                          {o.nome}
-                          {o.recomendado && <span className="ml-1 text-[9px] bg-primary text-primary-foreground px-1 py-0.5 rounded">REC</span>}
-                        </td>
-                        <td className="py-2 px-2 font-body text-muted-foreground">{o.inicioAcao || "—"}</td>
-                        <td className="py-2 px-2 font-body text-muted-foreground">{o.picoAcao || "—"}</td>
-                        <td className="py-2 px-2 font-body text-muted-foreground">{o.duracaoAcao || "—"}</td>
-                        <td className="py-2 px-2 font-body text-muted-foreground hidden sm:table-cell">{o.nomesComerciais?.join(", ") || "—"}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
+                {/* Basal insulins */}
+                <div>
+                  <p className="text-xs font-heading font-semibold text-foreground mb-2 flex items-center gap-1.5">
+                    <Syringe className="w-3.5 h-3.5 text-primary" /> Insulinas basais
+                  </p>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-xs">
+                      <thead>
+                        <tr className="border-b border-border bg-muted/50">
+                          <th className="text-left py-2 px-2 font-heading font-semibold text-foreground">Insulina</th>
+                          <th className="text-left py-2 px-2 font-heading font-semibold text-foreground">Início</th>
+                          <th className="text-left py-2 px-2 font-heading font-semibold text-foreground">Pico</th>
+                          <th className="text-left py-2 px-2 font-heading font-semibold text-foreground">Duração</th>
+                          <th className="text-left py-2 px-2 font-heading font-semibold text-foreground hidden sm:table-cell">Nomes comerciais</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {result.opcoesInsulina.filter(o => o.tipo === "basal").map((o, i) => (
+                          <tr key={i} className={`border-b border-border/50 ${o.recomendado ? "bg-primary/5" : ""}`}>
+                            <td className="py-2 px-2 font-body font-medium text-foreground">
+                              {o.nome}
+                              {o.recomendado && <span className="ml-1 text-[9px] bg-primary text-primary-foreground px-1 py-0.5 rounded">REC</span>}
+                            </td>
+                            <td className="py-2 px-2 font-body text-muted-foreground">{o.inicioAcao || "—"}</td>
+                            <td className="py-2 px-2 font-body text-muted-foreground">{o.picoAcao || "—"}</td>
+                            <td className="py-2 px-2 font-body text-muted-foreground">{o.duracaoAcao || "—"}</td>
+                            <td className="py-2 px-2 font-body text-muted-foreground hidden sm:table-cell">{o.nomesComerciais?.join(", ") || "—"}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
 
-            {/* Prandial insulins */}
-            <div>
-              <p className="text-xs font-heading font-semibold text-foreground mb-2 flex items-center gap-1.5">
-                <Pill className="w-3.5 h-3.5 text-primary" /> Insulinas prandiais (rápidas/ultrarrápidas)
-              </p>
-              <div className="overflow-x-auto">
-                <table className="w-full text-xs">
-                  <thead>
-                    <tr className="border-b border-border bg-muted/50">
-                      <th className="text-left py-2 px-2 font-heading font-semibold text-foreground">Insulina</th>
-                      <th className="text-left py-2 px-2 font-heading font-semibold text-foreground">Início</th>
-                      <th className="text-left py-2 px-2 font-heading font-semibold text-foreground">Pico</th>
-                      <th className="text-left py-2 px-2 font-heading font-semibold text-foreground">Duração</th>
-                      <th className="text-left py-2 px-2 font-heading font-semibold text-foreground hidden sm:table-cell">Nomes comerciais</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {result.opcoesInsulina.filter(o => o.tipo === "prandial").map((o, i) => (
-                      <tr key={i} className="border-b border-border/50">
-                        <td className="py-2 px-2 font-body font-medium text-foreground">{o.nome}</td>
-                        <td className="py-2 px-2 font-body text-muted-foreground">{o.inicioAcao || "—"}</td>
-                        <td className="py-2 px-2 font-body text-muted-foreground">{o.picoAcao || "—"}</td>
-                        <td className="py-2 px-2 font-body text-muted-foreground">{o.duracaoAcao || "—"}</td>
-                        <td className="py-2 px-2 font-body text-muted-foreground hidden sm:table-cell">{o.nomesComerciais?.join(", ") || "—"}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              <p className="text-[10px] text-muted-foreground mt-1 italic">Equivalência entre insulina regular e análogos rápidos: 1 U = 1 U. Aspart aprovada para uso na gravidez.</p>
-            </div>
+                {/* Prandial insulins */}
+                <div>
+                  <p className="text-xs font-heading font-semibold text-foreground mb-2 flex items-center gap-1.5">
+                    <Pill className="w-3.5 h-3.5 text-primary" /> Insulinas prandiais (rápidas/ultrarrápidas)
+                  </p>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-xs">
+                      <thead>
+                        <tr className="border-b border-border bg-muted/50">
+                          <th className="text-left py-2 px-2 font-heading font-semibold text-foreground">Insulina</th>
+                          <th className="text-left py-2 px-2 font-heading font-semibold text-foreground">Início</th>
+                          <th className="text-left py-2 px-2 font-heading font-semibold text-foreground">Pico</th>
+                          <th className="text-left py-2 px-2 font-heading font-semibold text-foreground">Duração</th>
+                          <th className="text-left py-2 px-2 font-heading font-semibold text-foreground hidden sm:table-cell">Nomes comerciais</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {result.opcoesInsulina.filter(o => o.tipo === "prandial").map((o, i) => (
+                          <tr key={i} className="border-b border-border/50">
+                            <td className="py-2 px-2 font-body font-medium text-foreground">{o.nome}</td>
+                            <td className="py-2 px-2 font-body text-muted-foreground">{o.inicioAcao || "—"}</td>
+                            <td className="py-2 px-2 font-body text-muted-foreground">{o.picoAcao || "—"}</td>
+                            <td className="py-2 px-2 font-body text-muted-foreground">{o.duracaoAcao || "—"}</td>
+                            <td className="py-2 px-2 font-body text-muted-foreground hidden sm:table-cell">{o.nomesComerciais?.join(", ") || "—"}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                  <p className="text-[10px] text-muted-foreground mt-1 italic">Equivalência entre insulina regular e análogos rápidos: 1 U = 1 U. Aspart aprovada para uso na gravidez.</p>
+                </div>
 
-            {/* Pre-mix insulins */}
-            <div>
-              <p className="text-xs font-heading font-semibold text-foreground mb-2 flex items-center gap-1.5">
-                <Clock className="w-3.5 h-3.5 text-primary" /> Insulinas pré-misturadas (bifásicas)
-              </p>
-              <div className="overflow-x-auto">
-                <table className="w-full text-xs">
-                  <thead>
-                    <tr className="border-b border-border bg-muted/50">
-                      <th className="text-left py-2 px-2 font-heading font-semibold text-foreground">Insulina</th>
-                      <th className="text-left py-2 px-2 font-heading font-semibold text-foreground">Início</th>
-                      <th className="text-left py-2 px-2 font-heading font-semibold text-foreground">Pico</th>
-                      <th className="text-left py-2 px-2 font-heading font-semibold text-foreground">Duração</th>
-                      <th className="text-left py-2 px-2 font-heading font-semibold text-foreground hidden sm:table-cell">Nomes comerciais</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {result.opcoesInsulina.filter(o => o.tipo === "pre_mistura").map((o, i) => (
-                      <tr key={i} className="border-b border-border/50">
-                        <td className="py-2 px-2 font-body font-medium text-foreground">{o.nome}</td>
-                        <td className="py-2 px-2 font-body text-muted-foreground">{o.inicioAcao || "—"}</td>
-                        <td className="py-2 px-2 font-body text-muted-foreground">{o.picoAcao || "—"}</td>
-                        <td className="py-2 px-2 font-body text-muted-foreground">{o.duracaoAcao || "—"}</td>
-                        <td className="py-2 px-2 font-body text-muted-foreground hidden sm:table-cell">{o.nomesComerciais?.join(", ") || "—"}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                {/* Pre-mix insulins */}
+                <div>
+                  <p className="text-xs font-heading font-semibold text-foreground mb-2 flex items-center gap-1.5">
+                    <Clock className="w-3.5 h-3.5 text-primary" /> Insulinas pré-misturadas (bifásicas)
+                  </p>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-xs">
+                      <thead>
+                        <tr className="border-b border-border bg-muted/50">
+                          <th className="text-left py-2 px-2 font-heading font-semibold text-foreground">Insulina</th>
+                          <th className="text-left py-2 px-2 font-heading font-semibold text-foreground">Início</th>
+                          <th className="text-left py-2 px-2 font-heading font-semibold text-foreground">Pico</th>
+                          <th className="text-left py-2 px-2 font-heading font-semibold text-foreground">Duração</th>
+                          <th className="text-left py-2 px-2 font-heading font-semibold text-foreground hidden sm:table-cell">Nomes comerciais</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {result.opcoesInsulina.filter(o => o.tipo === "pre_mistura").map((o, i) => (
+                          <tr key={i} className="border-b border-border/50">
+                            <td className="py-2 px-2 font-body font-medium text-foreground">{o.nome}</td>
+                            <td className="py-2 px-2 font-body text-muted-foreground">{o.inicioAcao || "—"}</td>
+                            <td className="py-2 px-2 font-body text-muted-foreground">{o.picoAcao || "—"}</td>
+                            <td className="py-2 px-2 font-body text-muted-foreground">{o.duracaoAcao || "—"}</td>
+                            <td className="py-2 px-2 font-body text-muted-foreground hidden sm:table-cell">{o.nomesComerciais?.join(", ") || "—"}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                  <p className="text-[10px] text-muted-foreground mt-1 italic">Pré-misturas: regime mais simples mas menos flexível — impossibilidade de ajustar componentes separadamente.</p>
+                </div>
               </div>
-              <p className="text-[10px] text-muted-foreground mt-1 italic">Pré-misturas: regime mais simples mas menos flexível — impossibilidade de ajustar componentes separadamente.</p>
-            </div>
+            </details>
           </div>
 
           {/* Dose inicial — apenas para primeira prescrição */}
