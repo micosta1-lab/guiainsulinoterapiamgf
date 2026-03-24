@@ -444,14 +444,45 @@ function getRecomendacoesHipoglicemia(data: PatientData): string[] {
 
 function getEducacaoTerapeutica(): string[] {
   return [
-    "Utilizar agulhas 4–6 mm (preferir 4 mm em doentes magros)",
+    // Técnica de administração
+    "§TÉCNICA DE ADMINISTRAÇÃO§",
+    "Utilizar agulhas 4–6 mm (preferir 4 mm em doentes magros); agulhas de 8 mm apenas com prega cutânea",
+    "Rotação sistemática dos locais de injeção: abdómen, coxas, braços, nádegas — alternar dentro de cada zona para prevenir lipodistrofia",
+    "Deixar a agulha no tecido subcutâneo durante 10 segundos após injeção para garantir administração completa",
+    "Canetas de insulina: verificar fluxo antes de cada injeção (2 U ao ar); nunca partilhar canetas entre doentes",
+    "Trocar agulha a cada injeção — reutilização aumenta dor, risco de lipodistrofia e de infeção",
+    "Conservação da insulina: frasco/caneta em uso à temperatura ambiente (máx. 28–30 °C) até 28 dias; reservas no frigorífico (2–8 °C) sem congelar",
+    "Não expor insulina a calor excessivo, luz solar direta ou temperaturas <2 °C",
+    
+    // Autovigilância
+    "§AUTOVIGILÂNCIA§",
     "Garantir acesso a glucómetro, lancetas e diário glicémico",
     "Individualizar horários e frequência de pesquisas de glicemia",
     "Alvos glicémicos: pré-prandial 80–130 mg/dL; pós-prandial 2h <180 mg/dL",
-    "Ensinar reconhecimento dos níveis de hipoglicemia (nível 1: 54–70 mg/dL; nível 2: <54 mg/dL; nível 3: alteração cognitiva/necessidade de ajuda)",
-    "Tratamento da hipoglicemia: 15–20 g de glicose oral, reavaliar aos 15 min",
+    
+    // Hipoglicemia
+    "§PLANO DE ATUAÇÃO EM HIPOGLICEMIA§",
+    "Reconhecimento dos níveis: nível 1 (54–70 mg/dL, sintomas autonómicos); nível 2 (<54 mg/dL, sintomas neuroglicopénicos); nível 3 (alteração cognitiva/necessidade de ajuda de terceiros)",
+    "Sintomas de alerta: tremor, sudorese, palpitações, fome, visão turva, confusão, irritabilidade",
+    "Tratamento — regra dos 15: ingerir 15–20 g de glicose oral (3–4 pacotes de açúcar ou 150 mL de sumo), reavaliar glicemia aos 15 minutos; repetir se necessário",
+    "Após correção, ingerir um snack com hidratos de carbono complexos se a próxima refeição estiver a >1 hora",
+    "Hipoglicemia nível 3 / inconsciente: NÃO dar alimentos por via oral; administrar glucagon IM/SC; chamar 112",
     "Considerar prescrição de glucagon se risco de hipoglicemia grave",
+    
+    // Doença aguda
+    "§REGRAS EM DOENÇA AGUDA (SICK-DAY RULES)§",
+    "NUNCA suspender a insulina basal — a necessidade de insulina geralmente aumenta na doença",
+    "Reforçar hidratação: ≥150–200 mL de água ou líquidos sem açúcar a cada hora",
+    "Vigiar glicemia capilar a cada 3–4 horas (ou mais frequentemente se >250 mg/dL)",
+    "Se possível, pesquisar cetonúria/cetonemia (cetonas ≥1,5 mmol/L = risco elevado)",
+    "Ajustar dose de insulina rápida/correção conforme glicemias (doses suplementares de 10–20% da dose total diária se hiperglicemia persistente)",
+    "Manter alimentação regular; se impossível, substituir por líquidos com hidratos de carbono (sumo, leite, sopas)",
+    "Sinais de alarme para observação urgente: vómitos persistentes, dor abdominal intensa, respiração rápida/profunda, glicemia >350 mg/dL, cetonúria forte positiva, confusão/sonolência, febre >38,5 °C sem melhoria em 24h",
+    
+    // Geral
+    "§ENVOLVIMENTO DO DOENTE§",
     "Envolver doente, família e/ou cuidador no plano terapêutico",
+    "Fornecer contacto telefónico para dúvidas urgentes",
   ];
 }
 
