@@ -76,6 +76,12 @@ export interface InsulinOption {
   limitacoes: string[];
   recomendado: boolean;
   justificacao?: string;
+  // Pharmacokinetic data
+  inicioAcao?: string;
+  picoAcao?: string;
+  duracaoAcao?: string;
+  administracao?: string;
+  nomesComerciais?: string[];
 }
 
 export interface TitrationRule {
