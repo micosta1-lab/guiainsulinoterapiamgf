@@ -55,7 +55,6 @@ function buildClinicalText(result: ClinicalResult, patientData: PatientData | nu
     lines.push("- Avaliar necessidade de referenciação a Endocrinologia/Consulta de Diabetes se alvos não atingidos após otimização");
   }
   lines.push("- Explicados sinais e sintomas que motivam reavaliação urgente");
-  lines.push("- Explicadas medidas não farmacológicas");
 
   return lines.join("\n");
 }
