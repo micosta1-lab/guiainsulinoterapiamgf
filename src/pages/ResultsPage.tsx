@@ -474,14 +474,44 @@ const ResultsPage = () => {
           </div>
 
           {/* Education */}
-          <div className="card-clinical space-y-3">
+          <div className="card-clinical space-y-3 md:col-span-2">
             <div className="flex items-center gap-2 text-primary">
               <Heart className="w-5 h-5" />
               <h3 className="font-heading font-bold">Educação terapêutica</h3>
             </div>
-            <ul className="text-xs space-y-1.5 text-muted-foreground font-body">
-              {result.educacaoTerapeutica.map((e, i) => <li key={i}>• {e}</li>)}
-            </ul>
+            <div className="space-y-4">
+              {(() => {
+                const sections: { title: string; items: string[] }[] = [];
+                let current: { title: string; items: string[] } | null = null;
+                result.educacaoTerapeutica.forEach((e) => {
+                  const match = e.match(/^§(.+?)§$/);
+                  if (match) {
+                    current = { title: match[1], items: [] };
+                    sections.push(current);
+                  } else if (current) {
+                    current.items.push(e);
+                  } else {
+                    if (!sections.length) sections.push({ title: "", items: [] });
+                    sections[0].items.push(e);
+                  }
+                });
+                return sections.map((sec, si) => (
+                  <div key={si}>
+                    {sec.title && (
+                      <p className="text-xs font-heading font-semibold text-foreground mb-1.5 uppercase tracking-wide text-primary/80">{sec.title}</p>
+                    )}
+                    <ul className="text-xs space-y-1 text-muted-foreground font-body pl-1">
+                      {sec.items.map((item, ii) => (
+                        <li key={ii} className="flex items-start gap-1.5">
+                          <span className="text-primary mt-0.5 shrink-0">•</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ));
+              })()}
+            </div>
           </div>
 
           {/* Hypoglycemia management */}
