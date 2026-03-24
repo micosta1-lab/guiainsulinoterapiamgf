@@ -447,18 +447,24 @@ function getEducacaoTerapeutica(): string[] {
     // Técnica de administração
     "§TÉCNICA DE ADMINISTRAÇÃO§",
     "Utilizar agulhas 4–6 mm (preferir 4 mm em doentes magros); agulhas de 8 mm apenas com prega cutânea",
-    "Rotação sistemática dos locais de injeção: abdómen, coxas, braços, nádegas — alternar dentro de cada zona para prevenir lipodistrofia",
+    "Rotação sistemática dos locais de injeção: abdómen, coxas, braços, nádegas — alternar dentro de cada zona para prevenir lipodistrofia; não repetir no mesmo ponto durante 1 mês",
+    "Se injeta mais que 1x/dia, utilizar uma área diferente para cada injeção; se vai fazer exercício com as pernas, não injetar nas coxas",
+    "Técnica: pegar numa prega de pele, injetar perpendicular (90°); se não conseguir fazer prega, esticar a pele e injetar a 45°",
     "Deixar a agulha no tecido subcutâneo durante 10 segundos após injeção para garantir administração completa",
     "Canetas de insulina: verificar fluxo antes de cada injeção (2 U ao ar); nunca partilhar canetas entre doentes",
-    "Trocar agulha a cada injeção — reutilização aumenta dor, risco de lipodistrofia e de infeção",
-    "Conservação da insulina: frasco/caneta em uso à temperatura ambiente (máx. 28–30 °C) até 28 dias; reservas no frigorífico (2–8 °C) sem congelar",
-    "Não expor insulina a calor excessivo, luz solar direta ou temperaturas <2 °C",
+    "Trocar agulha a cada injeção — reutilização aumenta dor, risco de lipodistrofia e de infeção; descartar agulhas em recipiente próprio e entregar no centro de saúde",
+    "Timing de administração: NPH 30–45 min antes da refeição; análogos rápidos imediatamente antes; insulina regular 15–30 min antes",
+    "Conservação: frasco/caneta em uso à temperatura ambiente (máx. 28–30 °C) até 28 dias; reservas no frigorífico (2–8 °C) sem congelar; nunca expor ao sol ou a temperaturas <2 °C",
+    "Se insulina turva (NPH/pré-misturas): agitar suavemente (inverter 15–20 vezes) antes de cada administração",
     
     // Autovigilância
     "§AUTOVIGILÂNCIA§",
-    "Garantir acesso a glucómetro, lancetas e diário glicémico",
-    "Individualizar horários e frequência de pesquisas de glicemia",
-    "Alvos glicémicos: pré-prandial 80–130 mg/dL; pós-prandial 2h <180 mg/dL",
+    "Garantir acesso a glucómetro, lancetas e diário glicémico; lavar mãos com água e sabão antes da picada; picar na zona lateral da polpa do dedo",
+    "Frequência recomendada: sob insulina 6–7 determinações/semana (aumentar se mau controlo); sob sulfonilureias/glinidas 1–3/semana",
+    "Realizar também sempre que suspeitar de hipoglicemia ou em situações especiais (exercício intenso, doença aguda, refeições atípicas)",
+    "Habitualmente em jejum e pré-prandial; o médico pode pedir controlos pós-prandiais (2h após refeições principais)",
+    "Alvos glicémicos: pré-prandial 80–130 mg/dL (ou <140 mg/dL); pós-prandial 2h <180 mg/dL",
+    "Auto-vigilância do peso: no mínimo 1x/mês; auto-exame dos pés: no mínimo 1x/semana",
     
     // Hipoglicemia
     "§PLANO DE ATUAÇÃO EM HIPOGLICEMIA§",
