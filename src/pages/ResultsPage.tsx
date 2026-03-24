@@ -91,6 +91,17 @@ function buildClinicalText(result: ClinicalResult, patientData: PatientData | nu
 
   // 13. Sinais de alarme
   lines.push("- Explicados sinais e sintomas que motivam reavaliação urgente");
+  lines.push("");
+
+  // 14. Medidas não farmacológicas
+  lines.push("MEDIDAS NÃO FARMACOLÓGICAS:");
+  lines.push("");
+  lines.push("- Mantenha um peso adequado");
+  lines.push("- Cessação tabágica, se necessário");
+  lines.push("- Vigilância de TA — deve ser inferior a 140/90 mmHg");
+  lines.push("- Promoção de exercício físico: exercício aeróbico moderado (caminhadas com passo vigoroso), pelo menos 45–60 minutos, 4–5x/semana");
+  lines.push("- Conselhos para evitar hipoglicemias com exercício: realizar exercício 1–3h depois de comer; ter sempre açúcar no bolso; se exercício intenso ou >1h, medir glicemia capilar no início e no fim; se glicemia >300 mg/dL, não fazer exercício; se exercício >1h, tomar lanche a cada hora; preferir abdómen como local de injeção antes do exercício");
+  lines.push("- Dieta equilibrada, polifracionada e diversificada. Se usa insulina ou doses altas de antidiabéticos, comer antes de dormir. Em cada refeição: alimentos farináceos em quantidade moderada (pão, cereais, massa, arroz, batatas cozidas, legumes 2–3x/semana); diariamente fruta e vegetais. Evitar: açúcar, mel, doces, chocolate, fritos, sumos industriais e açucarados. Optar por produtos com pouca gordura. Evitar manteiga, toucinho, enchidos, patés, carnes gordas, batatas fritas, aperitivos e fritos industriais. Reduzir consumo de carnes vermelhas");
 
   return lines.join("\n");
 }
