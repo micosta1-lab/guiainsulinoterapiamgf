@@ -44,6 +44,7 @@ function buildClinicalText(result: ClinicalResult, patientData: PatientData | nu
   lines.push("- Explicado plano de atuação em hipoglicemia (reconhecimento de sinais e sintomas, regra dos 15g HC e sinais/sintomas que motivam ida à urgência)");
   lines.push("- Explicadas regras em doença aguda: não suspender insulina basal, reforço de hidratação, vigilância glicémica mais frequente e sinais de alarme para observação urgente");
   lines.push("- Reforçada educação alimentar adaptada à insulinoterapia");
+  lines.push("- Explicadas medidas não farmacológicas");
   lines.push("- Avaliado risco de hipoglicemia (idade, função renal, contexto social)");
   lines.push("- Monitorizar em cada consulta: episódios de hipoglicemia, adesão terapêutica, técnica de administração e registos glicémicos");
   lines.push("- Marcada consulta de reavaliação em 1–2 semanas");
@@ -54,7 +55,6 @@ function buildClinicalText(result: ClinicalResult, patientData: PatientData | nu
     lines.push("- Avaliar necessidade de referenciação a Endocrinologia/Consulta de Diabetes se alvos não atingidos após otimização");
   }
   lines.push("- Explicados sinais e sintomas que motivam reavaliação urgente");
-  lines.push("- Explicadas medidas não farmacológicas");
 
   return lines.join("\n");
 }
