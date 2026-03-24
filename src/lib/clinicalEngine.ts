@@ -479,6 +479,16 @@ function getEducacaoTerapeutica(): string[] {
     "Manter alimentação regular; se impossível, substituir por líquidos com hidratos de carbono (sumo, leite, sopas)",
     "Sinais de alarme para observação urgente: vómitos persistentes, dor abdominal intensa, respiração rápida/profunda, glicemia >350 mg/dL, cetonúria forte positiva, confusão/sonolência, febre >38,5 °C sem melhoria em 24h",
     
+    // Medidas não farmacológicas
+    "§MEDIDAS NÃO FARMACOLÓGICAS§",
+    "Mantenha um peso adequado",
+    "Cessação tabágica, se necessário",
+    "Vigilância de TA — deve ser inferior a 140/90 mmHg",
+    "Promoção de exercício físico: exercício aeróbico moderado (caminhadas com passo vigoroso), pelo menos 45–60 minutos, 4–5x/semana",
+    "Conselhos para evitar hipoglicemias com exercício: realizar exercício 1–3h depois de comer; ter sempre açúcar no bolso; se exercício intenso ou >1h, medir glicemia capilar no início e no fim; se glicemia >300 mg/dL, não fazer exercício; se >1h, tomar lanche a cada hora; preferir abdómen como local de injeção antes do exercício",
+    "Dieta equilibrada, polifracionada e diversificada: alimentos farináceos em quantidade moderada (pão, cereais, massa, arroz, batatas cozidas, legumes 2–3x/semana); diariamente fruta e vegetais; evitar açúcar, mel, doces, chocolate, fritos, sumos industriais; optar por produtos com pouca gordura; evitar manteiga, toucinho, enchidos, carnes gordas, fritos industriais; reduzir carnes vermelhas",
+    "Se usa insulina ou doses altas de antidiabéticos, é aconselhável comer antes de dormir",
+    
     // Geral
     "§ENVOLVIMENTO DO DOENTE§",
     "Envolver doente, família e/ou cuidador no plano terapêutico",
