@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Syringe, AlertTriangle, CheckCircle, Printer, RotateCcw,
-  ShieldAlert, TrendingUp, BookOpen, Heart, ClipboardList, Copy, Check, Download
+  ShieldAlert, TrendingUp, BookOpen, Heart, ClipboardList, Copy, Check, Download, Clock, Activity, Pill
 } from "lucide-react";
-import type { ClinicalResult, PatientData } from "@/lib/types";
+import type { ClinicalResult, PatientData, InsulinOption } from "@/lib/types";
 import DisclaimerBanner from "@/components/DisclaimerBanner";
 import DarkModeToggle from "@/components/DarkModeToggle";
 import logoUSF from "@/assets/logo-usf-marginal.png";
