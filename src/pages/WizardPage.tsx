@@ -143,7 +143,7 @@ const StepContent = ({ step, data, update, flow, totalSteps }: StepContentProps)
       <div className="space-y-4">
         <p className="text-sm text-muted-foreground">Assinale as indicações aplicáveis ao doente. Estes critérios ajudam a fundamentar a decisão de insulinoterapia.</p>
         {([
-          { key: "valoresLaboratoriaisAlterados" as const, label: "Valores laboratoriais alterados (glicemia jejum > 250 mg/dL, glicemia ocasional > 300 mg/dL, HbA1c > 10%)" },
+          { key: "valoresLaboratoriaisAlterados" as const, label: "Valores laboratoriais alterados (glicemia jejum > 250 mg/dL, glicemia ocasional > 300 mg/dL, HbA1c ≥ 10%)" },
           { key: "sintomasCatabolicos" as const, label: "Sintomatologia espoliativa franca (poliúria, polidipsia, polifagia) e perda ponderal" },
           { key: "cetonuriaPositiva" as const, label: "Cetonúria positiva" },
           { key: "patologiaAguda" as const, label: "Descompensação metabólica devido a patologia médica aguda intercorrente" },

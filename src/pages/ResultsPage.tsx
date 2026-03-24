@@ -29,32 +29,17 @@ function buildClinicalText(result: ClinicalResult, patientData: PatientData | nu
       lines.push(`- Intensifica esquema de insulinoterapia: ${result.estrategiasIntensificacao[0].nome}`);
     }
   }
-  lines.push("- Definidos alvos glicémicos individualizados:");
-  lines.push("  Jejum: 80–130 mg/dL");
-  lines.push("  Pós-prandial: <180 mg/dL");
-  lines.push("  (ajustar conforme idade, comorbilidades e risco de hipoglicemia)");
-  lines.push(`- Estabelecido plano de titulação da insulina (frequência: ${result.frequenciaTitulacao || "a cada 2–3 dias"}):`);
-  result.tabelaTitulacaoBasal.forEach(r => lines.push(`  ${r.faixa}: ${r.acao}`));
-  if (result.tabelaTitulacaoRapida) {
-    lines.push("  Titulação prandial:");
-    result.tabelaTitulacaoRapida.forEach(r => lines.push(`  ${r.faixa}: ${r.acao}`));
-  }
-  lines.push("- Reforçada técnica de administração de insulina: rotação de locais, correta utilização de caneta/agulhas e conservação da insulina");
-  lines.push("- Reforçada autovigilância glicémica");
-  lines.push("- Explicado plano de atuação em hipoglicemia (reconhecimento de sinais e sintomas, regra dos 15g HC e sinais/sintomas que motivam ida à urgência)");
-  lines.push("- Explicadas regras em doença aguda: não suspender insulina basal, reforço de hidratação, vigilância glicémica mais frequente e sinais de alarme para observação urgente");
-  lines.push("- Reforçada educação alimentar adaptada à insulinoterapia");
-  lines.push("- Explicadas medidas não farmacológicas");
-  lines.push("- Avaliado risco de hipoglicemia (idade, função renal, contexto social)");
-  lines.push("- Monitorizar em cada consulta: episódios de hipoglicemia, adesão terapêutica, técnica de administração e registos glicémicos");
-  lines.push("- Marcada consulta de reavaliação em 1–2 semanas");
-  lines.push("- Reavaliação de HbA1c em 3 meses");
+  lines.push(`- Estabelecido plano de titulação da insulina (freq.: ${result.frequenciaTitulacao || "cada 2–3 dias"}) e definidos alvos glicémicos individualizados: jejum: 80–130 mg/dL / Pós-prandial: <180 mg/dL (ajustar conforme idade, comorbilidades e risco de hipoglicemia)`);
+  lines.push("- Reforçada técnica de administração de insulina (rotação de locais, correta utilização de caneta/agulhas e conservação da insulina), e autovigilância glicémica");
+  lines.push("- Reforçadas medidas não farmacológicas: educação alimentar, exercício, cessação tabágica, controlo da TA, entre outras");
+  lines.push("- Avaliado risco de hipoglicemia (idade, função renal, contexto social) e explicado plano de atuação (reconhecimento de sinais e sintomas, regra dos 15g HC e sinais/sintomas que motivam ida à urgência)");
+  lines.push("- Marcada consulta de reavaliação em 1–2 semanas, com reavaliação de HbA1c em 3 meses");
   if (result.necessitaReferenciacao) {
     lines.push(`- ⚠ Referenciação: ${result.motivoReferenciacao}`);
   } else {
-    lines.push("- Avaliar necessidade de referenciação a Endocrinologia/Consulta de Diabetes se alvos não atingidos após otimização");
+    lines.push("- Ponderar necessidade de referenciação a Endocrinologia/Consulta de Diabetes se alvos não atingidos após otimização");
   }
-  lines.push("- Explicados sinais e sintomas que motivam reavaliação urgente");
+  lines.push("- Explicados sinais e sintomas que motivam reavaliação urgente. Explicadas regras em doença aguda");
 
   return lines.join("\n");
 }
