@@ -270,9 +270,9 @@ const ResultsPage = () => {
 
               {/* Other options */}
               <details className="text-xs">
-                <summary className="cursor-pointer text-primary font-medium">Ver outras opções de insulina</summary>
+                <summary className="cursor-pointer text-primary font-medium">Ver outras opções de insulina basal</summary>
                 <div className="mt-2 space-y-2">
-                  {result.opcoesInsulina.filter(o => !o.recomendado).map((o, i) => (
+                  {result.opcoesInsulina.filter(o => !o.recomendado && o.tipo === "basal").map((o, i) => (
                     <div key={i} className="bg-muted rounded-lg p-2">
                       <p className="font-semibold text-foreground">{o.nome}</p>
                       <p className="text-muted-foreground">{o.vantagens[0]} · {o.limitacoes[0]}</p>
