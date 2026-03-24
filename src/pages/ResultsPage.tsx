@@ -118,23 +118,6 @@ const ResultsPage = () => {
               {copied ? <Check className="w-4 h-4 text-success" /> : <Copy className="w-4 h-4" />}
               {copied ? "Copiado!" : "Copiar texto"}
             </button>
-            <button
-              onClick={() => {
-                if (result) {
-                  const text = buildClinicalText(result, patientData);
-                  const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
-                  const url = URL.createObjectURL(blob);
-                  const a = document.createElement("a");
-                  a.href = url;
-                  a.download = "plano-insulinoterapia.txt";
-                  a.click();
-                  URL.revokeObjectURL(url);
-                }
-              }}
-              className="px-4 py-2 text-sm font-heading font-medium text-muted-foreground border border-border rounded-lg hover:bg-muted flex items-center gap-2"
-            >
-              <Download className="w-4 h-4" /> Guardar .txt
-            </button>
             <button onClick={() => window.print()} className="btn-primary-large text-sm px-4 py-2 flex items-center gap-2">
               <Printer className="w-4 h-4" /> Imprimir / PDF
             </button>
