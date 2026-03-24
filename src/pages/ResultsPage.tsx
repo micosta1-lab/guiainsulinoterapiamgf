@@ -29,73 +29,33 @@ function buildClinicalText(result: ClinicalResult, patientData: PatientData | nu
       lines.push(`- Intensifica esquema de insulinoterapia: ${result.estrategiasIntensificacao[0].nome}`);
     }
   }
-  lines.push("");
-
-  // 2. Alvos glicémicos
   lines.push("- Definidos alvos glicémicos individualizados:");
   lines.push("  Jejum: 80–130 mg/dL");
   lines.push("  Pós-prandial: <180 mg/dL");
   lines.push("  (ajustar conforme idade, comorbilidades e risco de hipoglicemia)");
-  lines.push("");
-
-  // 3. Plano de titulação
   lines.push(`- Estabelecido plano de titulação da insulina (frequência: ${result.frequenciaTitulacao || "a cada 2–3 dias"}):`);
   result.tabelaTitulacaoBasal.forEach(r => lines.push(`  ${r.faixa}: ${r.acao}`));
   if (result.tabelaTitulacaoRapida) {
     lines.push("  Titulação prandial:");
     result.tabelaTitulacaoRapida.forEach(r => lines.push(`  ${r.faixa}: ${r.acao}`));
   }
-  lines.push("");
-
-  // 4. Técnica de administração
   lines.push("- Reforçada técnica de administração de insulina: rotação de locais, correta utilização de caneta/agulhas e conservação da insulina");
-  lines.push("");
-
-  // 5. Autovigilância
   lines.push("- Reforçada autovigilância glicémica");
-  lines.push("");
-
-  // 6. Hipoglicemia
   lines.push("- Explicado plano de atuação em hipoglicemia (reconhecimento de sinais e sintomas, regra dos 15g HC e sinais/sintomas que motivam ida à urgência)");
-  lines.push("");
-
-  // 7. Doença aguda
   lines.push("- Explicadas regras em doença aguda: não suspender insulina basal, reforço de hidratação, vigilância glicémica mais frequente e sinais de alarme para observação urgente");
-  lines.push("");
-
-  // 8. Educação alimentar
   lines.push("- Reforçada educação alimentar adaptada à insulinoterapia");
-  lines.push("");
-
-  // 9. Risco de hipoglicemia
   lines.push("- Avaliado risco de hipoglicemia (idade, função renal, contexto social)");
-  lines.push("");
-
-  // 10. Monitorização
   lines.push("- Monitorizar em cada consulta: episódios de hipoglicemia, adesão terapêutica, técnica de administração e registos glicémicos");
-  lines.push("");
-
-  // 11. Reavaliação
   lines.push("- Marcada consulta de reavaliação em 1–2 semanas");
-  lines.push("");
   lines.push("- Reavaliação de HbA1c em 3 meses");
-  lines.push("");
-
-  // 12. Referenciação
   if (result.necessitaReferenciacao) {
     lines.push(`- ⚠ Referenciação: ${result.motivoReferenciacao}`);
   } else {
     lines.push("- Avaliar necessidade de referenciação a Endocrinologia/Consulta de Diabetes se alvos não atingidos após otimização");
   }
-  lines.push("");
-
-  // 13. Sinais de alarme
   lines.push("- Explicados sinais e sintomas que motivam reavaliação urgente");
   lines.push("");
-
-  // 14. Medidas não farmacológicas
   lines.push("MEDIDAS NÃO FARMACOLÓGICAS:");
-  lines.push("");
   lines.push("- Mantenha um peso adequado");
   lines.push("- Cessação tabágica, se necessário");
   lines.push("- Vigilância de TA — deve ser inferior a 140/90 mmHg");
