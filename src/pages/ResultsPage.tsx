@@ -12,56 +12,85 @@ import logoULS from "@/assets/logo-uls-lisboa.png";
 
 function buildClinicalText(result: ClinicalResult, patientData: PatientData | null): string {
   const lines: string[] = [];
-  lines.push("=== PLANO DE INSULINOTERAPIA ===");
+  const flow = result.flow;
+
+  // 1. Esquema de insulina
+  if (flow === "primeira" && result.insulinaRecomendada) {
+    const dose = result.doseInicialEscolhida ?? 10;
+    const nome = result.insulinaRecomendada.nome;
+    const horario = nome.toLowerCase().includes("nph") ? "ao deitar" : "1x/dia (horário fixo)";
+    lines.push(`- Inicia esquema de insulinoterapia: ${nome} ${dose}U ${horario}`);
+  } else if (flow === "intensificar") {
+    const principal = result.estrategiasIntensificacao?.find(s => s.principal);
+    if (principal) {
+      lines.push(`- Intensifica esquema de insulinoterapia: ${principal.nome}`);
+      lines.push(`  ${principal.descricao}`);
+    } else if (result.estrategiasIntensificacao && result.estrategiasIntensificacao.length > 0) {
+      lines.push(`- Intensifica esquema de insulinoterapia: ${result.estrategiasIntensificacao[0].nome}`);
+    }
+  }
   lines.push("");
 
-  if (patientData) {
-    lines.push(`Idade: ${patientData.idade ?? "—"} anos | Peso: ${patientData.peso ?? "—"} kg | HbA1c: ${patientData.hba1c ?? "—"}%`);
-    lines.push(`Tipo de diabetes: ${patientData.tipoDiabetes === "outro" ? (patientData.outroTipoDiabetes || "Outro") : patientData.tipoDiabetes ?? "—"}`);
-    lines.push("");
-  }
+  // 2. Alvos glicémicos
+  lines.push("- Definidos alvos glicémicos individualizados:");
+  lines.push("  Jejum: 80–130 mg/dL");
+  lines.push("  Pós-prandial: <180 mg/dL");
+  lines.push("  (ajustar conforme idade, comorbilidades e risco de hipoglicemia)");
+  lines.push("");
 
-  if (result.flow === "primeira" && result.insulinaRecomendada) {
-    lines.push(`ESQUEMA: ${result.insulinaRecomendada.nome}`);
-    if (result.insulinaRecomendada.justificacao) lines.push(`Justificação: ${result.insulinaRecomendada.justificacao}`);
-    lines.push(`DOSE INICIAL: ${result.doseInicialEscolhida} U/dia`);
-    if (result.doseInicialPorPeso) lines.push(`Por peso: ${result.doseInicialPorPeso}`);
-    lines.push("");
-  }
-
-  lines.push("TITULAÇÃO BASAL (alvo jejum 80-130 mg/dL):");
-  lines.push(`Frequência: ${result.frequenciaTitulacao}`);
+  // 3. Plano de titulação
+  lines.push(`- Estabelecido plano de titulação da insulina (frequência: ${result.frequenciaTitulacao || "a cada 2–3 dias"}):`);
   result.tabelaTitulacaoBasal.forEach(r => lines.push(`  ${r.faixa}: ${r.acao}`));
-  lines.push("");
-
-  if (result.estrategiasIntensificacao && result.estrategiasIntensificacao.length > 0) {
-    lines.push("ESTRATÉGIAS DE INTENSIFICAÇÃO:");
-    result.estrategiasIntensificacao.forEach(s => {
-      lines.push(`  ${s.principal ? "[RECOMENDADA] " : ""}${s.nome}`);
-      lines.push(`  ${s.descricao}`);
-    });
-    lines.push("");
-  }
-
   if (result.tabelaTitulacaoRapida) {
-    lines.push("TITULAÇÃO RÁPIDA (alvo pós-prandial <180 mg/dL):");
+    lines.push("  Titulação prandial:");
     result.tabelaTitulacaoRapida.forEach(r => lines.push(`  ${r.faixa}: ${r.acao}`));
-    lines.push("");
   }
-
-  lines.push("SEGUIMENTO:");
-  result.seguimentoUSF.forEach(s => lines.push(`  • ${s}`));
   lines.push("");
 
-  if (result.recomendacoesHipoglicemia.length > 0) {
-    lines.push("HIPOGLICEMIA:");
-    result.recomendacoesHipoglicemia.forEach(r => lines.push(`  • ${r}`));
-    lines.push("");
-  }
+  // 4. Técnica de administração
+  lines.push("- Reforçada técnica de administração de insulina: rotação de locais, correta utilização de caneta/agulhas e conservação da insulina");
+  lines.push("");
 
+  // 5. Autovigilância
+  lines.push("- Reforçada autovigilância glicémica");
+  lines.push("");
+
+  // 6. Hipoglicemia
+  lines.push("- Explicado plano de atuação em hipoglicemia (reconhecimento de sinais e sintomas, regra dos 15g HC e sinais/sintomas que motivam ida à urgência)");
+  lines.push("");
+
+  // 7. Doença aguda
+  lines.push("- Explicadas regras em doença aguda: não suspender insulina basal, reforço de hidratação, vigilância glicémica mais frequente e sinais de alarme para observação urgente");
+  lines.push("");
+
+  // 8. Educação alimentar
+  lines.push("- Reforçada educação alimentar adaptada à insulinoterapia");
+  lines.push("");
+
+  // 9. Risco de hipoglicemia
+  lines.push("- Avaliado risco de hipoglicemia (idade, função renal, contexto social)");
+  lines.push("");
+
+  // 10. Monitorização
+  lines.push("- Monitorizar em cada consulta: episódios de hipoglicemia, adesão terapêutica, técnica de administração e registos glicémicos");
+  lines.push("");
+
+  // 11. Reavaliação
+  lines.push("- Marcada consulta de reavaliação em 1–2 semanas");
+  lines.push("");
+  lines.push("- Reavaliação de HbA1c em 3 meses");
+  lines.push("");
+
+  // 12. Referenciação
   if (result.necessitaReferenciacao) {
-    lines.push(`⚠ REFERENCIAÇÃO: ${result.motivoReferenciacao}`);
+    lines.push(`- ⚠ Referenciação: ${result.motivoReferenciacao}`);
+  } else {
+    lines.push("- Avaliar necessidade de referenciação a Endocrinologia/Consulta de Diabetes se alvos não atingidos após otimização");
   }
+  lines.push("");
+
+  // 13. Sinais de alarme
+  lines.push("- Explicados sinais e sintomas que motivam reavaliação urgente");
 
   return lines.join("\n");
 }
