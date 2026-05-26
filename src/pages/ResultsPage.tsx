@@ -214,6 +214,12 @@ const ResultsPage = () => {
                       </ul>
                     </div>
                   </div>
+                  {result.notaEscolhaInsulina && (
+                    <div className="text-xs bg-accent/30 border border-border rounded-lg p-2 text-foreground/80 font-body">
+                      <p className="font-semibold text-foreground mb-0.5">Nota sobre a escolha:</p>
+                      {result.notaEscolhaInsulina}
+                    </div>
+                  )}
                 </div>
               )}
 
