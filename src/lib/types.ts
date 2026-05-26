@@ -49,6 +49,14 @@ export interface PatientData {
   baixaLiteracia?: boolean;
   esquecimentosFrequentes?: boolean;
 
+  // Resistência insulinémica / risco hipoglicemia (fatores adicionais)
+  sindromeMetabolico?: boolean;
+  sedentarismo?: boolean;
+  usoCorticoides?: boolean;
+  doencaRenalCronica?: boolean;
+  defCognitivo?: boolean;
+  polimedicacao?: boolean;
+
   // Hypoglycemia
   hipoglicemiasFrequentes?: boolean;
   hipoglicemiasNoturnas?: boolean;
