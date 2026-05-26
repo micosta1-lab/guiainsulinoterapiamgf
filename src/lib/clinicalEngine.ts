@@ -348,15 +348,20 @@ function getEstrategiasIntensificacao(data: PatientData): IntensificationStrateg
   const doseTotal = refEntries.reduce((sum, [, v]) => sum + (v?.dose || 0), 0);
   const refDesc = refEntries.map(([k, v]) => `${refLabels[k] || k}: ${v?.dose || "?"} U`).join(", ");
 
+  const apenasUmaRefeicaoAfetada = !data.hiperglicemiasPosPrandiais2Refeicoes;
+  const justifBasalPlus = data.terapeuticaAtual === "basal_rapida"
+    ? `Já faz ${tipoRapida} em ${refEntries.length} refeição(ões) — avaliar se doses atuais são adequadas e se deve estender a mais refeições`
+    : apenasUmaRefeicaoAfetada
+      ? "Estratégia basal-plus: em doente sob basal isolada, quando hiperglicemias pós-prandiais não ocorrem em ≥2 refeições, recomenda-se adicionar rápida apenas na refeição com maior impacto glicémico"
+      : "Estratégia basal-plus: permite controlo pós-prandial focado com menor complexidade";
+
   strategies.push({
     nome: "Adicionar insulina rápida à refeição principal",
     descricao: data.terapeuticaAtual === "basal_rapida"
       ? `Atualmente faz ${tipoRapida} (${refDesc || "sem detalhe"}; total ${doseTotal} U/dia). Considerar ajuste de dose ou adicionar a outra refeição. Titular conforme tabela pós-prandial.`
-      : `Dose inicial: 4 U ou 0,1 U/kg (${Math.round(peso * 0.1)} U) ou 10% da basal (${Math.round(doseBasal * 0.1)} U). Administrar na refeição com maior impacto glicémico.`,
-    justificacao: data.terapeuticaAtual === "basal_rapida"
-      ? `Já faz ${tipoRapida} em ${refEntries.length} refeição(ões) — avaliar se doses atuais são adequadas e se deve estender a mais refeições`
-      : "Estratégia basal-plus: permite controlo pós-prandial focado com menor complexidade",
-    principal: !preMix.sugerir,
+      : `Dose inicial: 4 U ou 0,1 U/kg (${Math.round(peso * 0.1)} U) ou 10% da basal (${Math.round(doseBasal * 0.1)} U). Administrar na refeição com maior impacto glicémico (refeição mais volumosa ou com maior subida pós-prandial).`,
+    justificacao: justifBasalPlus,
+    principal: !preMix.sugerir || apenasUmaRefeicaoAfetada,
     exemplosInsulinas: [
       "Lispro (Humalog®)",
       "Aspart (NovoRapid®)",
