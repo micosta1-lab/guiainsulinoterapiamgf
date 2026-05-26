@@ -516,6 +516,30 @@ function getEducacaoTerapeutica(): string[] {
   ];
 }
 
+function checkResistenciaInsulinemica(data: PatientData): { detected: boolean; motivos: string[] } {
+  const motivos: string[] = [];
+  if (data.obesidadeMarcada) motivos.push("Obesidade (sobretudo abdominal) / IMC elevado");
+  if (data.terapeuticaAtual === "outros_ado" && data.hba1c && data.hba1c >= 8) motivos.push("Doses prévias elevadas de antidiabéticos sem controlo adequado");
+  if (data.doseBasalAtual && data.peso && data.doseBasalAtual / data.peso > 0.5) motivos.push("Necessidade previsível de doses elevadas de insulina (>0,5 U/kg)");
+  if (data.hba1c && data.hba1c >= 9) motivos.push("HbA1c muito acima do alvo apesar de terapêutica otimizada");
+  if (data.sindromeMetabolico) motivos.push("Síndrome metabólica (HTA, dislipidemia, esteatose hepática)");
+  if (data.sedentarismo) motivos.push("Sedentarismo");
+  if (data.usoCorticoides) motivos.push("Uso de fármacos hiperglicemiantes (ex.: corticoides)");
+  return { detected: motivos.length >= 2, motivos };
+}
+
+function checkRiscoHipoglicemia(data: PatientData): { detected: boolean; motivos: string[] } {
+  const motivos: string[] = [];
+  if (data.idadeAvancada || (data.idade && data.idade >= 75)) motivos.push("Idade avançada / fragilidade");
+  if (data.regularidadeRefeicoes === "irregular") motivos.push("Ingestão alimentar irregular");
+  if (data.defCognitivo) motivos.push("Défice cognitivo");
+  if (data.doencaRenalCronica) motivos.push("Doença renal crónica");
+  if (data.hipoglicemiasFrequentes || data.hipoglicemiasNoturnas) motivos.push("História prévia de hipoglicemias");
+  if (data.polimedicacao) motivos.push("Polimedicação");
+  if (data.baixaLiteracia || data.esquecimentosFrequentes || data.necessidadeCuidador) motivos.push("Dificuldade na autogestão terapêutica");
+  return { detected: motivos.length >= 1, motivos };
+}
+
 function getSeguimentoUSF(): string[] {
   return [
     "Reavaliação médica em 1–2 semanas após início ou alteração de insulina",
