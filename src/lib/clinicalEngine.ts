@@ -30,6 +30,10 @@ export function evaluatePatient(data: PatientData, flow: FlowType): ClinicalResu
     ? redFlags.filter(r => r.severity === "urgent").map(r => r.message).join("; ")
     : undefined;
 
+  const resistencia = checkResistenciaInsulinemica(data);
+  const riscoHipo = checkRiscoHipoglicemia(data);
+  const notaEscolhaInsulina = "Glargina apresenta perfil mais estável e menor risco de hipoglicemia noturna face à NPH. A NPH pode ser alternativa quando custo/disponibilidade forem determinantes. Preferir basal análoga quando disponível.";
+
   return {
     flow,
     indicacoesInsulinizacao: indicacoes,
@@ -52,6 +56,11 @@ export function evaluatePatient(data: PatientData, flow: FlowType): ClinicalResu
     recomendacoesHipoglicemia: getRecomendacoesHipoglicemia(data),
     educacaoTerapeutica: getEducacaoTerapeutica(),
     seguimentoUSF: getSeguimentoUSF(),
+    resistenciaInsulinemica: resistencia.detected,
+    resistenciaInsulinemicaMotivos: resistencia.motivos,
+    riscoHipoglicemia: riscoHipo.detected,
+    riscoHipoglicemiaMotivos: riscoHipo.motivos,
+    notaEscolhaInsulina,
     necessitaReferenciacao,
     motivoReferenciacao,
   };
