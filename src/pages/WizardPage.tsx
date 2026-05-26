@@ -346,10 +346,16 @@ const StepContent = ({ step, data, update, flow, totalSteps }: StepContentProps)
           { key: "necessidadeCuidador", label: "Necessidade de cuidador" },
           { key: "idadeAvancada", label: "Idade avançada / fragilidade" },
           { key: "cardiopatiaIsquemica", label: "Cardiopatia isquémica" },
-          { key: "obesidadeMarcada", label: "Obesidade marcada" },
+          { key: "obesidadeMarcada", label: "Obesidade marcada (sobretudo abdominal) / IMC elevado" },
           { key: "recusaMultiplasInjecoes", label: "Recusa/intolerância a múltiplas injeções" },
           { key: "baixaLiteracia", label: "Baixa literacia em saúde" },
           { key: "esquecimentosFrequentes", label: "Esquecimentos frequentes" },
+          { key: "sindromeMetabolico", label: "Síndrome metabólica (HTA, dislipidemia, esteatose hepática)" },
+          { key: "sedentarismo", label: "Sedentarismo" },
+          { key: "usoCorticoides", label: "Uso de fármacos hiperglicemiantes (ex.: corticoides)" },
+          { key: "doencaRenalCronica", label: "Doença renal crónica" },
+          { key: "defCognitivo", label: "Défice cognitivo" },
+          { key: "polimedicacao", label: "Polimedicação" },
         ] as const).map(({ key, label }) => (
           <label key={key} className="flex items-center gap-3 cursor-pointer">
             <input
