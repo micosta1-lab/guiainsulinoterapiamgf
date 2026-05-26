@@ -152,6 +152,15 @@ export interface ClinicalResult {
   // Follow-up
   seguimentoUSF: string[];
 
+  // Alertas de risco
+  resistenciaInsulinemica: boolean;
+  resistenciaInsulinemicaMotivos: string[];
+  riscoHipoglicemia: boolean;
+  riscoHipoglicemiaMotivos: string[];
+
+  // Nota sobre escolha de insulina (NPH vs análoga)
+  notaEscolhaInsulina?: string;
+
   // Referral needed
   necessitaReferenciacao: boolean;
   motivoReferenciacao?: string;
