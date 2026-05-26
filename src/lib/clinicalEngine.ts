@@ -30,6 +30,10 @@ export function evaluatePatient(data: PatientData, flow: FlowType): ClinicalResu
     ? redFlags.filter(r => r.severity === "urgent").map(r => r.message).join("; ")
     : undefined;
 
+  const resistencia = checkResistenciaInsulinemica(data);
+  const riscoHipo = checkRiscoHipoglicemia(data);
+  const notaEscolhaInsulina = "Glargina apresenta perfil mais estável e menor risco de hipoglicemia noturna face à NPH. A NPH pode ser alternativa quando custo/disponibilidade forem determinantes. Preferir basal análoga quando disponível.";
+
   return {
     flow,
     indicacoesInsulinizacao: indicacoes,
@@ -52,6 +56,11 @@ export function evaluatePatient(data: PatientData, flow: FlowType): ClinicalResu
     recomendacoesHipoglicemia: getRecomendacoesHipoglicemia(data),
     educacaoTerapeutica: getEducacaoTerapeutica(),
     seguimentoUSF: getSeguimentoUSF(),
+    resistenciaInsulinemica: resistencia.detected,
+    resistenciaInsulinemicaMotivos: resistencia.motivos,
+    riscoHipoglicemia: riscoHipo.detected,
+    riscoHipoglicemiaMotivos: riscoHipo.motivos,
+    notaEscolhaInsulina,
     necessitaReferenciacao,
     motivoReferenciacao,
   };
@@ -339,15 +348,20 @@ function getEstrategiasIntensificacao(data: PatientData): IntensificationStrateg
   const doseTotal = refEntries.reduce((sum, [, v]) => sum + (v?.dose || 0), 0);
   const refDesc = refEntries.map(([k, v]) => `${refLabels[k] || k}: ${v?.dose || "?"} U`).join(", ");
 
+  const apenasUmaRefeicaoAfetada = !data.hiperglicemiasPosPrandiais2Refeicoes;
+  const justifBasalPlus = data.terapeuticaAtual === "basal_rapida"
+    ? `Já faz ${tipoRapida} em ${refEntries.length} refeição(ões) — avaliar se doses atuais são adequadas e se deve estender a mais refeições`
+    : apenasUmaRefeicaoAfetada
+      ? "Estratégia basal-plus: em doente sob basal isolada, quando hiperglicemias pós-prandiais não ocorrem em ≥2 refeições, recomenda-se adicionar rápida apenas na refeição com maior impacto glicémico"
+      : "Estratégia basal-plus: permite controlo pós-prandial focado com menor complexidade";
+
   strategies.push({
     nome: "Adicionar insulina rápida à refeição principal",
     descricao: data.terapeuticaAtual === "basal_rapida"
       ? `Atualmente faz ${tipoRapida} (${refDesc || "sem detalhe"}; total ${doseTotal} U/dia). Considerar ajuste de dose ou adicionar a outra refeição. Titular conforme tabela pós-prandial.`
-      : `Dose inicial: 4 U ou 0,1 U/kg (${Math.round(peso * 0.1)} U) ou 10% da basal (${Math.round(doseBasal * 0.1)} U). Administrar na refeição com maior impacto glicémico.`,
-    justificacao: data.terapeuticaAtual === "basal_rapida"
-      ? `Já faz ${tipoRapida} em ${refEntries.length} refeição(ões) — avaliar se doses atuais são adequadas e se deve estender a mais refeições`
-      : "Estratégia basal-plus: permite controlo pós-prandial focado com menor complexidade",
-    principal: !preMix.sugerir,
+      : `Dose inicial: 4 U ou 0,1 U/kg (${Math.round(peso * 0.1)} U) ou 10% da basal (${Math.round(doseBasal * 0.1)} U). Administrar na refeição com maior impacto glicémico (refeição mais volumosa ou com maior subida pós-prandial).`,
+    justificacao: justifBasalPlus,
+    principal: !preMix.sugerir || apenasUmaRefeicaoAfetada,
     exemplosInsulinas: [
       "Lispro (Humalog®)",
       "Aspart (NovoRapid®)",
@@ -500,6 +514,30 @@ function getEducacaoTerapeutica(): string[] {
     "Envolver doente, família e/ou cuidador no plano terapêutico",
     "Fornecer contacto telefónico para dúvidas urgentes",
   ];
+}
+
+function checkResistenciaInsulinemica(data: PatientData): { detected: boolean; motivos: string[] } {
+  const motivos: string[] = [];
+  if (data.obesidadeMarcada) motivos.push("Obesidade (sobretudo abdominal) / IMC elevado");
+  if (data.terapeuticaAtual === "outros_ado" && data.hba1c && data.hba1c >= 8) motivos.push("Doses prévias elevadas de antidiabéticos sem controlo adequado");
+  if (data.doseBasalAtual && data.peso && data.doseBasalAtual / data.peso > 0.5) motivos.push("Necessidade previsível de doses elevadas de insulina (>0,5 U/kg)");
+  if (data.hba1c && data.hba1c >= 9) motivos.push("HbA1c muito acima do alvo apesar de terapêutica otimizada");
+  if (data.sindromeMetabolico) motivos.push("Síndrome metabólica (HTA, dislipidemia, esteatose hepática)");
+  if (data.sedentarismo) motivos.push("Sedentarismo");
+  if (data.usoCorticoides) motivos.push("Uso de fármacos hiperglicemiantes (ex.: corticoides)");
+  return { detected: motivos.length >= 2, motivos };
+}
+
+function checkRiscoHipoglicemia(data: PatientData): { detected: boolean; motivos: string[] } {
+  const motivos: string[] = [];
+  if (data.idadeAvancada || (data.idade && data.idade >= 75)) motivos.push("Idade avançada / fragilidade");
+  if (data.regularidadeRefeicoes === "irregular") motivos.push("Ingestão alimentar irregular");
+  if (data.defCognitivo) motivos.push("Défice cognitivo");
+  if (data.doencaRenalCronica) motivos.push("Doença renal crónica");
+  if (data.hipoglicemiasFrequentes || data.hipoglicemiasNoturnas) motivos.push("História prévia de hipoglicemias");
+  if (data.polimedicacao) motivos.push("Polimedicação");
+  if (data.baixaLiteracia || data.esquecimentosFrequentes || data.necessidadeCuidador) motivos.push("Dificuldade na autogestão terapêutica");
+  return { detected: motivos.length >= 1, motivos };
 }
 
 function getSeguimentoUSF(): string[] {

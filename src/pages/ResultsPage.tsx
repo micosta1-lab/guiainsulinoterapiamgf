@@ -137,6 +137,34 @@ const ResultsPage = () => {
           </div>
         )}
 
+        {/* Resistência insulinémica */}
+        {result.resistenciaInsulinemica && (
+          <div className="alert-warning flex items-start gap-3">
+            <AlertTriangle className="w-5 h-5 mt-0.5 shrink-0" />
+            <div>
+              <p className="font-heading font-bold text-sm">Provável resistência insulinémica</p>
+              <p className="text-sm mt-1">Considerar necessidade de titulação mais ativa e doses superiores de insulina basal. Reforçar intervenção no estilo de vida, otimizar terapêutica metabólica/ponderal quando indicada e rever adesão, técnica de administração e causas secundárias de hiperglicemia.</p>
+              <ul className="text-xs mt-2 space-y-0.5 list-disc list-inside">
+                {result.resistenciaInsulinemicaMotivos.map((m, i) => <li key={i}>{m}</li>)}
+              </ul>
+            </div>
+          </div>
+        )}
+
+        {/* Risco aumentado de hipoglicemia */}
+        {result.riscoHipoglicemia && (
+          <div className="alert-warning flex items-start gap-3">
+            <AlertTriangle className="w-5 h-5 mt-0.5 shrink-0" />
+            <div>
+              <p className="font-heading font-bold text-sm">Risco aumentado de hipoglicemia</p>
+              <p className="text-sm mt-1">Preferir esquemas com menor risco de hipoglicemia (basal análoga, evitar pré-mistura), titulação mais conservadora e reforçar educação sobre sinais, prevenção e tratamento da hipoglicemia (regra dos 15g HC, glucagon se risco grave).</p>
+              <ul className="text-xs mt-2 space-y-0.5 list-disc list-inside">
+                {result.riscoHipoglicemiaMotivos.map((m, i) => <li key={i}>{m}</li>)}
+              </ul>
+            </div>
+          </div>
+        )}
+
         {/* Red flags */}
         {result.redFlags.length > 0 && (
           <div className="space-y-2">
@@ -186,6 +214,12 @@ const ResultsPage = () => {
                       </ul>
                     </div>
                   </div>
+                  {result.notaEscolhaInsulina && (
+                    <div className="text-xs bg-accent/30 border border-border rounded-lg p-2 text-foreground/80 font-body">
+                      <p className="font-semibold text-foreground mb-0.5">Nota sobre a escolha:</p>
+                      {result.notaEscolhaInsulina}
+                    </div>
+                  )}
                 </div>
               )}
 

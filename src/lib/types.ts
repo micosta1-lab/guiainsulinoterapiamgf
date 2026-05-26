@@ -49,6 +49,14 @@ export interface PatientData {
   baixaLiteracia?: boolean;
   esquecimentosFrequentes?: boolean;
 
+  // Resistência insulinémica / risco hipoglicemia (fatores adicionais)
+  sindromeMetabolico?: boolean;
+  sedentarismo?: boolean;
+  usoCorticoides?: boolean;
+  doencaRenalCronica?: boolean;
+  defCognitivo?: boolean;
+  polimedicacao?: boolean;
+
   // Hypoglycemia
   hipoglicemiasFrequentes?: boolean;
   hipoglicemiasNoturnas?: boolean;
@@ -143,6 +151,15 @@ export interface ClinicalResult {
 
   // Follow-up
   seguimentoUSF: string[];
+
+  // Alertas de risco
+  resistenciaInsulinemica: boolean;
+  resistenciaInsulinemicaMotivos: string[];
+  riscoHipoglicemia: boolean;
+  riscoHipoglicemiaMotivos: string[];
+
+  // Nota sobre escolha de insulina (NPH vs análoga)
+  notaEscolhaInsulina?: string;
 
   // Referral needed
   necessitaReferenciacao: boolean;
