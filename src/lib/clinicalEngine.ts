@@ -115,7 +115,7 @@ function detectIndicacoesInsulinizacao(data: PatientData, flow: FlowType): strin
     if (data.patologiaAguda)
       indicacoes.push("Descompensação metabólica associada a patologia aguda intercorrente");
     if (data.insuficienciaRenalHepatica)
-      indicacoes.push("Insuficiência renal ou hepática que condicione alteração das necessidades de insulina ou impossibilite a manutenção da terapêutica concomitante");
+      indicacoes.push("Insuficiência renal ou hepática que condicione alteração das necessidades de insulina");
     if (data.internamentoCirurgia)
       indicacoes.push("Internamento e/ou cirurgia");
     if (data.gravidez)
