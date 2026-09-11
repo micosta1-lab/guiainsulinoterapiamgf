@@ -26,6 +26,10 @@ export interface PatientData {
   reacoesAdversasADO?: boolean;
   valoresLaboratoriaisAlterados?: boolean;
 
+  // Intensification-specific indications
+  hba1cAcimaAlvoIndividualizado?: boolean;
+  hiperglicemiaPersistenteTitulacao?: boolean;
+
   // Current therapy
   terapeuticaAtual?: "sem_insulina" | "basal" | "basal_rapida" | "pre_mistura" | "outros_ado";
   doseBasalAtual?: number;
