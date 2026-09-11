@@ -34,23 +34,7 @@ const Index = () => {
         <div className="max-w-2xl w-full text-center space-y-8">
           <div className="flex justify-center">
             <div className="w-20 h-20 rounded-3xl bg-primary/10 flex items-center justify-center">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="hsl(var(--primary))"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="w-10 h-10"
-                aria-hidden="true"
-              >
-                <path d="m18 2 4 4" />
-                <path d="m17 7 3-3" />
-                <path d="M19 9 8.7 19.3c-1 1-2.5 1-3.4 0l-.6-.6c-1-1-1-2.5 0-3.4L15 5" />
-                <path d="m9 11 4 4" />
-                <path d="m5 19-3 3" />
-                <path d="m14 4 6 6" />
-              </svg>
+              <Syringe className="w-10 h-10 text-primary" aria-hidden="true" />
             </div>
           </div>
           <div className="space-y-3">
