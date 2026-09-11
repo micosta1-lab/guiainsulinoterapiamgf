@@ -147,7 +147,7 @@ const StepContent = ({ step, data, update, flow, totalSteps }: StepContentProps)
           { key: "sintomasCatabolicos" as const, label: "Sintomatologia espoliativa franca (poliúria, polidipsia, polifagia) e perda ponderal" },
           { key: "cetonuriaPositiva" as const, label: "Cetonúria/cetonemia positiva" },
           { key: "patologiaAguda" as const, label: "Descompensação metabólica associada a patologia aguda intercorrente" },
-          { key: "insuficienciaRenalHepatica" as const, label: "Insuficiência renal ou hepática que condicione alteração das necessidades de insulina ou impossibilite a manutenção da terapêutica concomitante" },
+          { key: "insuficienciaRenalHepatica" as const, label: "Insuficiência renal ou hepática que condicione alteração das necessidades de insulina" },
           { key: "internamentoCirurgia" as const, label: "Internamento e/ou cirurgia" },
           { key: "gravidez" as const, label: "Gravidez" },
         ]
