@@ -170,16 +170,9 @@ const StepContent = ({ step, data, update, flow, totalSteps }: StepContentProps)
             ? "Assinale as indicações para intensificação da insulinoterapia na DM2."
             : "Assinale as indicações aplicáveis ao doente. Estes critérios ajudam a fundamentar a decisão de insulinoterapia."}
         </p>
-        <div className="grid grid-cols-1 gap-3">
+        <div className="space-y-3">
           {indicationItems.map(({ key, label }) => (
-            <label
-              key={key}
-              className={`flex items-start gap-3 p-4 rounded-lg border cursor-pointer transition-all ${
-                data[key]
-                  ? "border-primary bg-primary/5 ring-1 ring-primary"
-                  : "border-border bg-card hover:border-primary/50"
-              }`}
-            >
+            <label key={key} className="flex items-start gap-3 cursor-pointer">
               <input
                 type="checkbox"
                 checked={!!data[key]}
