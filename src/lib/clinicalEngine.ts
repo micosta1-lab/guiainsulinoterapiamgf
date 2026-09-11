@@ -2,7 +2,7 @@ import type { PatientData, ClinicalResult, RedFlag, InsulinOption, TitrationRule
 
 export function evaluatePatient(data: PatientData, flow: FlowType): ClinicalResult {
   const redFlags = detectRedFlags(data);
-  const indicacoes = detectIndicacoesInsulinizacao(data);
+  const indicacoes = detectIndicacoesInsulinizacao(data, flow);
   const baseRecomendacao = indicacoes.map(i => i);
 
   const overbasalizationResult = checkOverbasalization(data);
