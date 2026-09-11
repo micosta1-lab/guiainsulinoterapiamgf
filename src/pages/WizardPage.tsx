@@ -137,12 +137,21 @@ interface StepContentProps {
 }
 
 const StepContent = ({ step, data, update, flow, totalSteps }: StepContentProps) => {
-  // Step 0: Indicações para insulinoterapia
+  // Step 0: Indicações
   if (step === 0) {
-    return (
-      <div className="space-y-4">
-        <p className="text-sm text-muted-foreground">Assinale as indicações aplicáveis ao doente. Estes critérios ajudam a fundamentar a decisão de insulinoterapia.</p>
-        {([
+    const isIntensificar = flow === "intensificar";
+    const indicationItems = isIntensificar
+      ? [
+          { key: "hba1cAcimaAlvoIndividualizado" as const, label: "HbA1c acima do alvo individualizado" },
+          { key: "hiperglicemiaPersistenteTitulacao" as const, label: "Hiperglicemia persistente, apesar de titulação adequada da insulina" },
+          { key: "sintomasCatabolicos" as const, label: "Sintomatologia espoliativa franca (poliúria, polidipsia, polifagia) e perda ponderal" },
+          { key: "cetonuriaPositiva" as const, label: "Cetonúria/cetonemia positiva" },
+          { key: "patologiaAguda" as const, label: "Descompensação metabólica associada a patologia aguda intercorrente" },
+          { key: "insuficienciaRenalHepatica" as const, label: "Insuficiência renal ou hepática que condicione alteração das necessidades de insulina ou impossibilite a manutenção da terapêutica concomitante" },
+          { key: "internamentoCirurgia" as const, label: "Internamento e/ou cirurgia" },
+          { key: "gravidez" as const, label: "Gravidez" },
+        ]
+      : [
           { key: "valoresLaboratoriaisAlterados" as const, label: "Valores laboratoriais alterados (glicemia jejum > 250 mg/dL, glicemia ocasional > 300 mg/dL, HbA1c ≥ 10%)" },
           { key: "sintomasCatabolicos" as const, label: "Sintomatologia espoliativa franca (poliúria, polidipsia, polifagia) e perda ponderal" },
           { key: "cetonuriaPositiva" as const, label: "Cetonúria positiva" },
@@ -152,7 +161,16 @@ const StepContent = ({ step, data, update, flow, totalSteps }: StepContentProps)
           { key: "terapeuticaOtimizadaHba1cAcima" as const, label: "Terapêutica farmacológica não insulínica otimizada e HbA1c acima do alvo" },
           { key: "internamentoCirurgia" as const, label: "Internamento e/ou cirurgia" },
           { key: "gravidez" as const, label: "Gravidez" },
-        ]).map(({ key, label }) => (
+        ];
+
+    return (
+      <div className="space-y-4">
+        <p className="text-sm text-muted-foreground">
+          {isIntensificar
+            ? "Assinale as indicações para intensificação da insulinoterapia na DM2."
+            : "Assinale as indicações aplicáveis ao doente. Estes critérios ajudam a fundamentar a decisão de insulinoterapia."}
+        </p>
+        {indicationItems.map(({ key, label }) => (
           <label key={key} className="flex items-center gap-3 cursor-pointer">
             <input
               type="checkbox"

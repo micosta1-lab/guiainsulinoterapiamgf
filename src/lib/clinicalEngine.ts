@@ -2,7 +2,7 @@ import type { PatientData, ClinicalResult, RedFlag, InsulinOption, TitrationRule
 
 export function evaluatePatient(data: PatientData, flow: FlowType): ClinicalResult {
   const redFlags = detectRedFlags(data);
-  const indicacoes = detectIndicacoesInsulinizacao(data);
+  const indicacoes = detectIndicacoesInsulinizacao(data, flow);
   const baseRecomendacao = indicacoes.map(i => i);
 
   const overbasalizationResult = checkOverbasalization(data);
@@ -100,8 +100,29 @@ function detectRedFlags(data: PatientData): RedFlag[] {
   return flags;
 }
 
-function detectIndicacoesInsulinizacao(data: PatientData): string[] {
+function detectIndicacoesInsulinizacao(data: PatientData, flow: FlowType): string[] {
   const indicacoes: string[] = [];
+
+  if (flow === "intensificar") {
+    if (data.hba1cAcimaAlvoIndividualizado)
+      indicacoes.push("HbA1c acima do alvo individualizado");
+    if (data.hiperglicemiaPersistenteTitulacao)
+      indicacoes.push("Hiperglicemia persistente, apesar de titulação adequada da insulina");
+    if (data.sintomasCatabolicos)
+      indicacoes.push("Sintomatologia espoliativa franca (poliúria, polidipsia, polifagia) e perda ponderal");
+    if (data.cetonuriaPositiva)
+      indicacoes.push("Cetonúria/cetonemia positiva");
+    if (data.patologiaAguda)
+      indicacoes.push("Descompensação metabólica associada a patologia aguda intercorrente");
+    if (data.insuficienciaRenalHepatica)
+      indicacoes.push("Insuficiência renal ou hepática que condicione alteração das necessidades de insulina ou impossibilite a manutenção da terapêutica concomitante");
+    if (data.internamentoCirurgia)
+      indicacoes.push("Internamento e/ou cirurgia");
+    if (data.gravidez)
+      indicacoes.push("Gravidez");
+
+    return indicacoes;
+  }
 
   if (data.glicemiaJejum && data.glicemiaJejum > 250)
     indicacoes.push("Glicemia em jejum >250 mg/dL");
