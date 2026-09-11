@@ -170,17 +170,26 @@ const StepContent = ({ step, data, update, flow, totalSteps }: StepContentProps)
             ? "Assinale as indicações para intensificação da insulinoterapia na DM2."
             : "Assinale as indicações aplicáveis ao doente. Estes critérios ajudam a fundamentar a decisão de insulinoterapia."}
         </p>
-        {indicationItems.map(({ key, label }) => (
-          <label key={key} className="flex items-center gap-3 cursor-pointer">
-            <input
-              type="checkbox"
-              checked={!!data[key]}
-              onChange={(e) => update({ [key]: e.target.checked })}
-              className="w-5 h-5 rounded border-input text-primary focus:ring-ring accent-primary"
-            />
-            <span className="text-sm font-body text-foreground">{label}</span>
-          </label>
-        ))}
+        <div className="grid grid-cols-1 gap-3">
+          {indicationItems.map(({ key, label }) => (
+            <label
+              key={key}
+              className={`flex items-start gap-3 p-4 rounded-lg border cursor-pointer transition-all ${
+                data[key]
+                  ? "border-primary bg-primary/5 ring-1 ring-primary"
+                  : "border-border bg-card hover:border-primary/50"
+              }`}
+            >
+              <input
+                type="checkbox"
+                checked={!!data[key]}
+                onChange={(e) => update({ [key]: e.target.checked })}
+                className="w-5 h-5 mt-0.5 rounded border-input text-primary focus:ring-ring accent-primary shrink-0"
+              />
+              <span className="text-sm font-body text-foreground leading-snug">{label}</span>
+            </label>
+          ))}
+        </div>
       </div>
     );
   }
